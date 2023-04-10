@@ -6,6 +6,7 @@ import { addProduct } from "../redux/cartRedux"
 
 const EcommerceHome = () => {
     const [allProducts, setAllProducts] = useState([]);
+    const [quantity, setQuantity] = useState(1)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -26,8 +27,27 @@ const EcommerceHome = () => {
                 addProduct({
                     itemProduct: selectedProduct,
                     itemPrice: selectedProduct.price,
-                    quantity: 1
+                    quantity
                 }))
+        }
+    }
+
+    const handleQuantity = (incrementType) => {
+        //const selectedProduct = allProducts.find((findSpecificItem) => findSpecificItem.id === userProduct);
+        // if (incrementType === "increasing") {
+        //     setQuantity(selectedProduct.quantity + 1)
+        // } else {
+        //     if (incrementType === "decreasing") {
+        //         selectedProduct.quantity > 0 && setQuantity(selectedProduct.quantity - 1);
+        //     }
+        // }
+
+        if (incrementType === "increasing") {
+            setQuantity(quantity + 1)
+        } else {
+            if (incrementType === "decreasing") {
+                quantity > 0 && setQuantity(quantity - 1);
+            }
         }
     }
 
@@ -42,11 +62,14 @@ const EcommerceHome = () => {
                             <h1 className="text-xl mt-10">Title: {product.title} </h1>
                             <p>Price: {product.price} </p>
                             <h3>Category: {product.category} </h3>
-                            <div className="flex flex-col justify-center">
-                                <button onClick={() => handleAddProduct(product.id)} className="lg-shadow border p-2">Add To Cart</button>
+                            <div className="pr-80 mx-auto flex justify-start gap-2">
+                                <p key={product.id} className="border p-1 cursor-pointer" onClick={() => handleQuantity("increasing")}>+</p>
+                                <p>{quantity.id}</p>
+                                <p className="border p-1 cursor-pointer" onClick={() => handleQuantity("decreasing")}>-</p>
                             </div>
+                            <div className="flex flex-col justify-center">
+                                <button onClick={() => handleAddProduct(product.id)} className="lg-shadow border p-2">Add To Cart</button></div>
                         </div>
-                        <p>Cart Count: {} </p>
                     </div>
                 ))}
             </div>
