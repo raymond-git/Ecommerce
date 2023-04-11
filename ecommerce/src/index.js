@@ -4,6 +4,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Homepage from "./components/ecommerceHome"
+import Cart from "./components/cart";
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
@@ -14,6 +15,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/product" element={<Homepage />}></Route>
+        <Route path="/cart" element={<Cart />}></Route>
       </Routes>
     </BrowserRouter>
   </Provider>
