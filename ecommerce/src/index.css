@@ -15,3 +15,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.add_cart_button {
+  background-color: black;
+  font-weight: bold;
+  color: white;
+  border-style: solid;
+  padding: 1rem;
+}
+
+.remove_cart_button {
+  background-color: #C70000;
+  font-weight: bold;
+  color: white;
+  border-style: solid;
+  padding: 1rem;
+}
+
+.price_color {
+  color: #0f1111
+}

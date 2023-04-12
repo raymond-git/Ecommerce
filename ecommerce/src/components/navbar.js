@@ -3,7 +3,7 @@ import { BsCart3 } from "react-icons/bs"
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-    const cartProducts = useSelector(state => state.cart.quantity); //We are calling the "cart" from /redux/store.js
+    const cartProducts = useSelector(state => state.cart.cartCount); //We are calling the "cart" from /redux/store.js
     return (
         <div className="flex justify-between py-6 p-20 bg-black">
             <img className="h-10" src="/logo192.png"></img>
