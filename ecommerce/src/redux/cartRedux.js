@@ -11,21 +11,19 @@ const cartSlice = createSlice({
   reducers: {
     addProduct: (state, action) => {
       state.quantity += 1;
-      state.products.push(action.payload) //Each time we Add to Cart the item is pushed to products array
-      state.totalPrice += action.payload.itemPrice * action.payload.quantity
+      state.products.push(action.payload); //Each time we Add to Cart the item is pushed to products array
+      state.totalPrice += action.payload.itemPrice * action.payload.quantity;
     },
 
     deleteProduct: (state, action) => {
-      // product = [hat, scooter, umbrella, ball]; if userinput.id is not inside product array it should print [hat, scooter, umbrella]
-      state.products = state.products.filter((product) => product.id !== action.payload.quantity);
-      state.quantity -=1;
+      state.products = state.products.filter((product) => product.id !== action.payload.itemProduct);
       state.totalPrice -= action.payload.itemPrice * action.payload.quantity;
     },
 
     removeAllProduct: (state, action) => {
       state.products = [];
       state.quantity = 0;
-    }
+    },
   },
 });
 

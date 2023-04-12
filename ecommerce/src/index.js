@@ -14,8 +14,8 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path="/product" element={<Homepage />}></Route>
-        <Route path="/cart" element={<Cart />}></Route>
+        <Route path="/product" element={<Homepage/>}></Route>
+        <Route path="/cart" element={<Cart/>}></Route>
       </Routes>
     </BrowserRouter>
   </Provider>

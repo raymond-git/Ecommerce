@@ -7,7 +7,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 const EcommerceHome = () => {
     const [allProducts, setAllProducts] = useState([]);
-    const [quantity, setQuantity] = useState(1)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -19,47 +18,28 @@ const EcommerceHome = () => {
             })
     }, [])
 
-    // For example (userProduct) = Mens Casual Slim Fit
-    // allProducts = array of all items from the api
-    // Once selected product is found we would dispatch there product details, price and quantity
     const handleAddProduct = (userProduct) => {
-        const selectedProduct = allProducts.find((findSpecificItem) => findSpecificItem.id === userProduct.id);
-        if (selectedProduct) {
-            dispatch(
-                addProduct({
-                    itemProduct: selectedProduct,
-                    itemPrice: selectedProduct.price,
-                    quantity: 1
-                }))
-        }
+        dispatch(
+            addProduct({
+                itemProduct: userProduct,
+                itemPrice: userProduct.price,
+                quantity: 1
+            }))
     }
 
-    // const handleQuantity = (incrementType) => {
-    //     if (incrementType === "increasing") {
-    //         setQuantity(quantity + 1)
-    //     } else {
-    //         if (incrementType === "decreasing") {
-    //             quantity > 0 && setQuantity(quantity - 1);
-    //         }
-    //     }
+
+    // const handleRemoveProduct = (userProduct) => {
+    //     dispatch(
+    //         deleteProduct({
+    //             itemProduct: userProduct,
+    //             itemPrice: userProduct.price,
+    //         }));
     // }
 
-    const handleRemoveProduct = (userProduct) => {
-        const selectedProduct = allProducts.find((findSpecificItem) => findSpecificItem.id === userProduct.id);
 
-        if (selectedProduct) {
-            dispatch(
-                deleteProduct({
-                    itemProduct: selectedProduct,
-                    itemPrice: selectedProduct.price,
-                    quantity: 1
-                }))
-        }
-    }
-
-    const handleRemoveAllProduct = (userProduct) => {
-        dispatch(removeAllProduct(userProduct));
-    }
+    // const handleRemoveAllProduct = (userProduct) => {
+    //     dispatch(removeAllProduct(userProduct));
+    // }
 
     return (
         <div>
@@ -73,14 +53,11 @@ const EcommerceHome = () => {
                             <p>Price: {product.price} </p>
                             <h3>Category: {product.category} </h3>
                             <div className="pr-80 mx-auto flex justify-start gap-2">
-                                {/* <p key={product.id} className="border p-1 cursor-pointer" onClick={() => handleQuantity("increasing")}>+</p>
-                                <p>{quantity.id}</p>
-                                <p className="border p-1 cursor-pointer" onClick={() => handleQuantity("decreasing")} >-</p> */}
                             </div>
                             <div className="flex flex-col justify-center pt-8">
                                 <button onClick={() => handleAddProduct(product)} className="lg-shadow border p-2">Add To Cart</button>
-                                <button onClick={() => handleRemoveProduct(product)} className="lg-shadow border p-2">Delete Cart</button>
-                                <button onClick={() => handleRemoveAllProduct(product)} className="lg-shadow border p-2">Remove Cart</button>
+                                {/* <button onClick={() => handleRemoveProduct(product.id)} className="lg-shadow border p-2">Delete Cart</button>
+                                <button onClick={() => handleRemoveAllProduct(product)} className="lg-shadow border p-2">Remove Cart</button> */}
                             </div>
                         </div>
                     </div>
