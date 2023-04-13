@@ -24,6 +24,7 @@ const EcommerceHome = () => {
         dispatch(totalPrice({ itemPrice: userProduct.price, cartCount: 1 }))
     }
 
+
     // const handleRemoveProduct = (userProduct) => {
     //     dispatch(
     //         deleteProduct({
@@ -40,15 +41,16 @@ const EcommerceHome = () => {
     return (
         <div>
             <Navbar></Navbar>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-20">
+            <h1 className="text-5xl md:text-6xl pl-16 mt-20 font-semibold">Explore</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-16">
                 {allProducts.map((product) => (
                     <div key={product.id}>
                         <div className="border lg-shadow w-full h-full p-12 flex flex-col justify-between">
                             <img className="w-44 h-44 mx-auto" src={product.image}></img>
-                            <h1 className="text-2xl mt-10 font-sans">{product.title} </h1>
-                            <p className="text-3xl font-bold pt-4 font-sans price_color">Price: ${product.price} </p>
+                            <h1 className="text-xl md:text-2xl mt-10 font-sans">{product.title} </h1>
+                            <p className="text-2xl md:text-3xl font-bold pt-4 font-sans price_color">Price: ${product.price} </p>
                             <div className="flex flex-col justify-center pt-8">
-                                <button onClick={() => handleAddProduct(product)} className="add_cart_button lg-shadow text-xl">Add To Cart</button>
+                                <button onClick={() => handleAddProduct(product)} className="add_cart_button lg-shadow text-base md:text-xl">Add To Cart</button>
                                 {/* <button onClick={() => handleRemoveProduct(product.id)} className="lg-shadow border p-2">Delete Cart</button>
                                 <button onClick={() => handleRemoveAllProduct(product)} className="lg-shadow border p-2">Remove Cart</button> */}
                             </div>
