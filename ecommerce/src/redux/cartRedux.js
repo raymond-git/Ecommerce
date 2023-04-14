@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, findNonSerializableValue } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
   name: "productCart",
@@ -7,7 +7,6 @@ const cartSlice = createSlice({
     cartCount: 0,
     itemCount: 0,
     totalPrice: 0,
-    updatedTotalPrice: 0
   },
 
   reducers: {
@@ -23,14 +22,15 @@ const cartSlice = createSlice({
       state.cartCount += 1;
     },
 
-    incrementTotalPrice: (state, action) => {
-      state.updatedTotalPrice +=  action.payload.previousTotal * action.payload.updatedTotal;
+    itemCartCount: (state, action) => {
+      state.itemCount += 1;
     },
 
-    deleteProduct: (state, action) => {
-      state.products = state.products.filter((product) => product.id !== action.payload.itemProduct);
-      state.totalPrice -= action.payload.itemPrice * action.payload.quantity;
-    },
+    // removeProduct: (state, action) => {
+    //   const productToBeRemove = action.payload.id;
+    //   state.products = state.products.filter((product) => product.id !== productToBeRemove);
+    // },
+
 
     removeAllProduct: (state, action) => {
       state.products = [];
@@ -44,5 +44,5 @@ const cartSlice = createSlice({
 // The cartSlice slice has one action creator defined, addProduct, which takes an itemProduct object 
 // as a payload and adds it to the products array in the slice's state. The reducer function for the slice handles this action and updates the slice's state accordingly.
 
-export const { addProduct, totalCartCount, totalPrice, incrementTotalPrice, deleteProduct, removeAllProduct } = cartSlice.actions
+export const { addProduct, removeProduct, itemCartCount, totalCartCount, totalPrice, removeAllProduct } = cartSlice.actions
 export default cartSlice.reducer;
