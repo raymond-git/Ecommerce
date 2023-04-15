@@ -1,48 +1,74 @@
-import { createSlice, findNonSerializableValue } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
   name: "productCart",
   initialState: {
-    products: [],
-    cartCount: 0,
+    products: JSON.parse(localStorage.getItem('products')) || [],
+    cartCount: JSON.parse(localStorage.getItem('cartCount')) || 0,
     itemCount: 0,
     totalPrice: 0,
   },
 
   reducers: {
+    // Each time we add to Cart the item is pushed to products array
     addProduct: (state, action) => {
-      state.products.push(action.payload); //Each time we Add to Cart the item is pushed to products array
+      state.products.push(action.payload);
+      localStorage.setItem("products", JSON.stringify(state.products));
     },
 
+    // Increase the quantity count for specific product you select
+    itemCartCount: (state, action) => {
+      console.log(action);
+      state.itemCount += 1;
+    },
+
+    // Total items in the shopping cart
+    totalCartCount: (state, action) => {
+      state.cartCount += 1;
+      localStorage.setItem("cartCount", JSON.stringify(state.cartCount));
+    },
+
+    // Total price in the shopping cart
     totalPrice: (state, action) => {
       state.totalPrice += action.payload.itemPrice * action.payload.cartCount;
     },
 
-    totalCartCount: (state, action) => {
-      state.cartCount += 1;
-    },
-
-    itemCartCount: (state, action) => {
-      state.itemCount += 1;
-    },
-
-    // removeProduct: (state, action) => {
-    //   const productToBeRemove = action.payload.id;
-    //   state.products = state.products.filter((product) => product.id !== productToBeRemove);
+    // deductFromTotalPrice: (state, action) => {
+    //   state.totalPrice -= action.payload.itemPrice * action.payload.cartCount;
     // },
 
+    // Remove product from shopping cart
+    removeProduct: (state, action) => {
+      const productToRemove = state.products.findIndex(product => product.itemProduct.id === action.payload.deleteProduct);
+      if (productToRemove > -1) {
+        const currentArray = [...state.products]; // Take the current array so that we can modify
+        currentArray.splice(productToRemove, 1); // Remove one element from the updatedRemoveProduct starting at the index
+        state.products = currentArray;
+        localStorage.setItem('products', JSON.stringify(state.products));
+      }
+      //state.itemCount -= state.products.itemCount
+      // state.totalPrice -= action.payload.itemPrice;
+    },
 
+    // Remove shopping cart count after removing product from cart
+    removeCartCount: (state, action) => {
+      state.cartCount -= 1
+      localStorage.setItem("cartCount", JSON.stringify(state.cartCount));
+    },
+
+    // Completely remove all product in the cart
     removeAllProduct: (state, action) => {
       state.products = [];
       state.quantity = 0;
+      state.cartCount = 0;
+      state.totalPrice = 0;
     },
   },
 });
-
 
 // What this does is it collect all redux actions and a reducer function that handles those actions
 // The cartSlice slice has one action creator defined, addProduct, which takes an itemProduct object 
 // as a payload and adds it to the products array in the slice's state. The reducer function for the slice handles this action and updates the slice's state accordingly.
 
-export const { addProduct, removeProduct, itemCartCount, totalCartCount, totalPrice, removeAllProduct } = cartSlice.actions
+export const { addProduct, removeProduct, removeCartCount, itemCartCount, totalCartCount, totalPrice, deductTotalPrice, removeAllProduct } = cartSlice.actions
 export default cartSlice.reducer;
