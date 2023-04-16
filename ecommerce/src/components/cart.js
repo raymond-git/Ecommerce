@@ -6,13 +6,14 @@ const Cart = () => {
 
     const viewCart = useSelector(state => state.cart.products);
     const totalCartPrice = useSelector(state => '$' + state.cart.totalPrice.toFixed(2));
-    const cartCount = useSelector(state => state.cart.cartCount);
+    const cartQuantity = useSelector(state => state.cart.itemCount);
+
 
     const dispatch = useDispatch();
 
     const handleIncreaseCart = (numberOfItem) => {
         dispatch(totalCartCount({ cartCount: 1 })) // Total number of item in shopping cart
-        dispatch(itemCartCount({ itemCount: 1 })) // Total number of quantity of the specific item
+        dispatch(itemCartCount({ id: numberOfItem.itemProduct.id, itemCount: 1 })) // Total number of quantity of the specific item
         dispatch(totalPrice({ itemPrice: numberOfItem.itemProduct.price, cartCount: 1 })); // Total price of all products in shopping cart
     };
 
@@ -42,7 +43,7 @@ const Cart = () => {
 
                                 <div className="quantity">
                                     <a className="quantity__minus"><span>-</span></a>
-                                    <p name="quantity" type="text" className="quantity__input" value={"1"}>{cartCount}</p>
+                                    <p name="quantity" type="text" className="quantity__input" value="1">{cartQuantity}</p>
                                     <a className="quantity__plus" onClick={() => handleIncreaseCart(cartItem)}><span>+</span></a>
                                 </div>
 

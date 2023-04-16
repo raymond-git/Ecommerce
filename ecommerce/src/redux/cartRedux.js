@@ -18,13 +18,15 @@ const cartSlice = createSlice({
 
     // Increase the quantity count for specific product you select
     itemCartCount: (state, action) => {
-      console.log(action);
-      state.itemCount += 1;
+      const store = state.products.find((prod) => prod.itemProduct.id === action.payload.id);
+      if(store){
+        state.itemCount += action.payload.itemCount;
+      }
     },
-
+    
     // Total items in the shopping cart
     totalCartCount: (state, action) => {
-      state.cartCount += 1;
+      state.cartCount += action.payload.cartCount;
       localStorage.setItem("cartCount", JSON.stringify(state.cartCount));
     },
 
@@ -52,7 +54,11 @@ const cartSlice = createSlice({
 
     // Remove shopping cart count after removing product from cart
     removeCartCount: (state, action) => {
-      state.cartCount -= 1
+      if (state.cartCount < 1) {
+        state.cartCount = 0;
+      } else {
+        state.cartCount -= state.itemCount
+      }
       localStorage.setItem("cartCount", JSON.stringify(state.cartCount));
     },
 
