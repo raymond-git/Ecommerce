@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import axios from "axios"
 import Navbar from "../components/navbar"
 import { useDispatch } from "react-redux"
-import { addProduct, totalCartCount, totalPrice, deleteProduct, removeAllProduct } from "../redux/cartRedux"
+import { addProduct, totalCartCount, totalPrice, deleteProduct, removeAllProduct, itemCartCount } from "../redux/cartRedux"
 import { v4 as uuidv4 } from 'uuid';
 
 const EcommerceHome = () => {
@@ -43,8 +43,8 @@ const EcommerceHome = () => {
             <Navbar></Navbar>
             <h1 className="text-5xl md:text-6xl pl-16 mt-20 font-semibold">Explore</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-16">
-                {allProducts.map((product) => (
-                    <div key={product.id}>
+                {allProducts.map((product, index) => (
+                    <div key={index}>
                         <div className="border lg-shadow w-full h-full p-12 flex flex-col justify-between">
                             <img className="w-44 h-44 mx-auto" src={product.image}></img>
                             <h1 className="text-xl md:text-2xl mt-10 font-sans">{product.title} </h1>

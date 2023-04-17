@@ -16,14 +16,18 @@ const cartSlice = createSlice({
       localStorage.setItem("products", JSON.stringify(state.products));
     },
 
-    // Increase the quantity count for specific product you select
+    //Increase the quantity count for specific product you select
     itemCartCount: (state, action) => {
-      const store = state.products.find((prod) => prod.itemProduct.id === action.payload.id);
-      if(store){
-        state.itemCount += action.payload.itemCount;
+      const productToUpdate = state.products.find(prod => prod.itemProduct.id === action.payload.id);
+      if (productToUpdate) {
+        const itemCount = parseInt(action.payload.itemCount); // ensure itemCount is a number
+        if (!isNaN(itemCount)) {
+          productToUpdate.itemCount = (productToUpdate.itemCount || 1) + itemCount;
+          state.itemCount = (state.itemCount || 0) + itemCount;
+        }
       }
     },
-    
+
     // Total items in the shopping cart
     totalCartCount: (state, action) => {
       state.cartCount += action.payload.cartCount;
@@ -35,10 +39,6 @@ const cartSlice = createSlice({
       state.totalPrice += action.payload.itemPrice * action.payload.cartCount;
     },
 
-    // deductFromTotalPrice: (state, action) => {
-    //   state.totalPrice -= action.payload.itemPrice * action.payload.cartCount;
-    // },
-
     // Remove product from shopping cart
     removeProduct: (state, action) => {
       const productToRemove = state.products.findIndex(product => product.itemProduct.id === action.payload.deleteProduct);
@@ -48,8 +48,6 @@ const cartSlice = createSlice({
         state.products = currentArray;
         localStorage.setItem('products', JSON.stringify(state.products));
       }
-      //state.itemCount -= state.products.itemCount
-      // state.totalPrice -= action.payload.itemPrice;
     },
 
     // Remove shopping cart count after removing product from cart
@@ -57,7 +55,7 @@ const cartSlice = createSlice({
       if (state.cartCount < 1) {
         state.cartCount = 0;
       } else {
-        state.cartCount -= state.itemCount
+        state.cartCount -= action.payload.cartCount
       }
       localStorage.setItem("cartCount", JSON.stringify(state.cartCount));
     },
