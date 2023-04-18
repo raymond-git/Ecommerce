@@ -17,13 +17,24 @@ const cartSlice = createSlice({
     },
 
     //Increase the quantity count for specific product you select
-    itemCartCount: (state, action) => {
+    increaseItemCount: (state, action) => {
       const productToUpdate = state.products.find(prod => prod.itemProduct.id === action.payload.id);
-      if (productToUpdate) {
+      if (productToUpdate !== -1) {
         const itemCount = parseInt(action.payload.itemCount); // ensure itemCount is a number
         if (!isNaN(itemCount)) {
           productToUpdate.itemCount = (productToUpdate.itemCount || 1) + itemCount;
           state.itemCount = (state.itemCount || 0) + itemCount;
+        }
+      }
+    },
+
+    decreaseItemCount: (state, action) => {
+      const productToUpdate = state.products.find(prod => prod.itemProduct.id ===action.payload.id);
+      if(productToUpdate){
+        const itemCount = parseInt(action.payload.itemCount);
+        if(!isNaN(itemCount)){
+          productToUpdate.itemCount = Math.max(0, (productToUpdate.itemCount || 1) - itemCount);
+          state.itemCount = Math.max(0, (state.itemCount || 0) - itemCount)
         }
       }
     },
@@ -36,8 +47,18 @@ const cartSlice = createSlice({
 
     // Total price in the shopping cart
     totalPrice: (state, action) => {
-      state.totalPrice += action.payload.itemPrice * action.payload.cartCount;
+      if (action.payload.itemPrice) {
+        state.totalPrice += action.payload.itemPrice * action.payload.cartCount;
+      } else if (action.payload.itemPrice2) {
+        state.totalPrice -= action.payload.itemPrice2 * action.payload.cartCount2;
+      } else if (state.itemCount === 0) {
+        state.totalPrice = 0;
+      }
+      console.log('totalPrice state itemCount:', state.itemCount);
+      console.log('totalPrice state totalPrice before:', state.totalPrice);
+      console.log('totalPrice state totalPrice after:', state.totalPrice);
     },
+    
 
     // Remove product from shopping cart
     removeProduct: (state, action) => {
@@ -74,5 +95,5 @@ const cartSlice = createSlice({
 // The cartSlice slice has one action creator defined, addProduct, which takes an itemProduct object 
 // as a payload and adds it to the products array in the slice's state. The reducer function for the slice handles this action and updates the slice's state accordingly.
 
-export const { addProduct, removeProduct, removeCartCount, itemCartCount, totalCartCount, totalPrice, deductTotalPrice, removeAllProduct } = cartSlice.actions
+export const { addProduct, removeProduct, removeCartCount, increaseItemCount, decreaseItemCount, totalCartCount, totalPrice, totalPriceDeduct, deductTotalPrice, removeAllProduct } = cartSlice.actions
 export default cartSlice.reducer;

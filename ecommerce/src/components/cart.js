@@ -1,7 +1,6 @@
 import Navbar from "../components/navbar"
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { totalPrice, removeProduct, removeCartCount, itemCartCount, totalCartCount } from "../redux/cartRedux";
+import { totalPrice, totalPriceDeduct, removeProduct, removeCartCount, increaseItemCount, decreaseItemCount, totalCartCount } from "../redux/cartRedux";
 
 const Cart = () => {
 
@@ -9,10 +8,15 @@ const Cart = () => {
     const totalCartPrice = useSelector(state => '$' + state.cart.totalPrice.toFixed(2));
     const dispatch = useDispatch();
 
-    const handleIncreaseCart = (numberOfItem) => {
-        dispatch(itemCartCount({ id: numberOfItem.itemProduct.id, itemCount: 1 })) // Total number of quantity of the specific item
-        dispatch(totalPrice({ itemPrice: numberOfItem.itemProduct.price, cartCount: 1 })); // Total price of all products in shopping cart
+    const handleIncreaseCart = (increaseItemQuantity) => {
+        dispatch(increaseItemCount({ id: increaseItemQuantity.itemProduct.id, itemCount: 1 })); // Total number of quantity of the specific item
+        dispatch(totalPrice({ itemPrice: increaseItemQuantity.itemProduct.price, cartCount: 1 })); // Total price of all products in shopping cart
     };
+
+    const handleDecreaseCart = (decreaseItemQuantity) => {
+        dispatch(decreaseItemCount({ id: decreaseItemQuantity.itemProduct.id, itemCount: 1 }));
+        dispatch(totalPrice({ itemPrice2: decreaseItemQuantity.itemProduct.price, cartCount2: 1 }))
+    }
 
     const handleRemoveButton = (deleteProduct) => {
         dispatch(removeProduct({ deleteProduct }));
@@ -38,7 +42,7 @@ const Cart = () => {
 
 
                                 <div key={index} className="quantity">
-                                    <a className="quantity__minus"><span>-</span></a>
+                                    <a className="quantity__minus" onClick={() => handleDecreaseCart(cartItem)}><span>-</span></a>
                                     <p name="quantity" type="text" className="quantity__input">{cartItem.itemCount}</p>
                                     <a className="quantity__plus" onClick={() => handleIncreaseCart(cartItem)}><span>+</span></a>
                                 </div>
