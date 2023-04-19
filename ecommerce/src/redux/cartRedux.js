@@ -19,16 +19,16 @@ const cartSlice = createSlice({
     //Increase the quantity count for specific product you select
     increaseItemCount: (state, action) => {
       const productToUpdate = state.products.find(prod => prod.itemProduct.id === action.payload.id);
-      if (productToUpdate !== -1) {
+      if (productToUpdate) {
         const itemCount = parseInt(action.payload.itemCount); // ensure itemCount is a number
         if (!isNaN(itemCount)) {
           productToUpdate.itemCount = (productToUpdate.itemCount || 1) + itemCount;
           state.itemCount = (state.itemCount || 0) + itemCount;
-          localStorage.setItem("itemCount", JSON.stringify(state.itemCount));
+          localStorage.setItem("products", JSON.stringify(state.products));
+          localStorage.setItem("itemCount", state.itemCount);
         }
       }
     },
-
 
     decreaseItemCount: (state, action) => {
       const productToUpdate = state.products.find(prod => prod.itemProduct.id === action.payload.id);
@@ -37,7 +37,8 @@ const cartSlice = createSlice({
         if (!isNaN(itemCount) && itemCount > 0) {
           productToUpdate.itemCount = Math.max(0, (productToUpdate.itemCount || 0) - itemCount);
           state.itemCount = Math.max(0, (state.itemCount || 0) - itemCount);
-          localStorage.setItem("itemCount", JSON.stringify(state.itemCount));
+          localStorage.setItem("products", JSON.stringify(state.products));
+          localStorage.setItem("itemCount", state.itemCount);
         }
       }
     },
@@ -53,16 +54,12 @@ const cartSlice = createSlice({
         state.totalPrice += action.payload.itemPrice * action.payload.cartCount;
       } else if (action.payload.itemPrice2) {
         state.totalPrice -= action.payload.itemPrice2 * action.payload.cartCount;
-        if (state.itemCount <= 1) {
+        if (state.itemCount < 1) {
           state.totalPrice = action.payload.itemPrice2;
         }
       }
       localStorage.setItem("totalPrice", JSON.stringify(state.totalPrice));
     },
-
-
-
-
 
     // Remove product from shopping cart
     removeProduct: (state, action) => {
