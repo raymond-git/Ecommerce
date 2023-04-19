@@ -5,8 +5,8 @@ const cartSlice = createSlice({
   initialState: {
     products: JSON.parse(localStorage.getItem('products')) || [],
     cartCount: JSON.parse(localStorage.getItem('cartCount')) || 0,
-    itemCount: 0,
-    totalPrice: 0,
+    itemCount: JSON.parse(localStorage.getItem('itemCount')) || 0,
+    totalPrice: JSON.parse(localStorage.getItem('totalPrice')) || 0,
   },
 
   reducers: {
@@ -24,17 +24,20 @@ const cartSlice = createSlice({
         if (!isNaN(itemCount)) {
           productToUpdate.itemCount = (productToUpdate.itemCount || 1) + itemCount;
           state.itemCount = (state.itemCount || 0) + itemCount;
+          localStorage.setItem("itemCount", JSON.stringify(state.itemCount));
         }
       }
     },
 
+
     decreaseItemCount: (state, action) => {
-      const productToUpdate = state.products.find(prod => prod.itemProduct.id ===action.payload.id);
-      if(productToUpdate){
+      const productToUpdate = state.products.find(prod => prod.itemProduct.id === action.payload.id);
+      if (productToUpdate) {
         const itemCount = parseInt(action.payload.itemCount);
-        if(!isNaN(itemCount)){
-          productToUpdate.itemCount = Math.max(0, (productToUpdate.itemCount || 1) - itemCount);
-          state.itemCount = Math.max(0, (state.itemCount || 0) - itemCount)
+        if (!isNaN(itemCount) && itemCount > 0) {
+          productToUpdate.itemCount = Math.max(0, (productToUpdate.itemCount || 0) - itemCount);
+          state.itemCount = Math.max(0, (state.itemCount || 0) - itemCount);
+          localStorage.setItem("itemCount", JSON.stringify(state.itemCount));
         }
       }
     },
@@ -45,20 +48,21 @@ const cartSlice = createSlice({
       localStorage.setItem("cartCount", JSON.stringify(state.cartCount));
     },
 
-    // Total price in the shopping cart
     totalPrice: (state, action) => {
       if (action.payload.itemPrice) {
         state.totalPrice += action.payload.itemPrice * action.payload.cartCount;
       } else if (action.payload.itemPrice2) {
-        state.totalPrice -= action.payload.itemPrice2 * action.payload.cartCount2;
-      } else if (state.itemCount === 0) {
-        state.totalPrice = 0;
+        state.totalPrice -= action.payload.itemPrice2 * action.payload.cartCount;
+        if (state.itemCount <= 1) {
+          state.totalPrice = action.payload.itemPrice2;
+        }
       }
-      console.log('totalPrice state itemCount:', state.itemCount);
-      console.log('totalPrice state totalPrice before:', state.totalPrice);
-      console.log('totalPrice state totalPrice after:', state.totalPrice);
+      localStorage.setItem("totalPrice", JSON.stringify(state.totalPrice));
     },
-    
+
+
+
+
 
     // Remove product from shopping cart
     removeProduct: (state, action) => {

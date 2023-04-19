@@ -15,7 +15,7 @@ const Cart = () => {
 
     const handleDecreaseCart = (decreaseItemQuantity) => {
         dispatch(decreaseItemCount({ id: decreaseItemQuantity.itemProduct.id, itemCount: 1 }));
-        dispatch(totalPrice({ itemPrice2: decreaseItemQuantity.itemProduct.price, cartCount2: 1 }))
+        dispatch(totalPrice({ itemPrice2: decreaseItemQuantity.itemProduct.price, cartCount: 1 }))
     }
 
     const handleRemoveButton = (deleteProduct) => {
@@ -43,7 +43,7 @@ const Cart = () => {
 
                                 <div key={index} className="quantity">
                                     <a className="quantity__minus" onClick={() => handleDecreaseCart(cartItem)}><span>-</span></a>
-                                    <p name="quantity" type="text" className="quantity__input">{cartItem.itemCount}</p>
+                                    <p name="quantity" type="text" className="quantity__input" value={cartItem.itemCount || 1}>{cartItem.itemCount || 1}</p>
                                     <a className="quantity__plus" onClick={() => handleIncreaseCart(cartItem)}><span>+</span></a>
                                 </div>
 
