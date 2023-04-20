@@ -19,9 +19,9 @@ const Cart = () => {
     }
 
     const handleRemoveButton = (deleteProduct) => {
-        dispatch(removeProduct({ deleteProduct }));
+        dispatch(removeProduct({ id: deleteProduct.itemProduct.id}));
         dispatch(removeCartCount({ cartCount: 1 }));
-        // dispatch(deductTotalPrice({ itemPrice: deleteProduct.itemProduct.price, cartCount: 1 }))
+        dispatch(totalPrice({ itemPrice3: deleteProduct.itemProduct.price, itemCount: deleteProduct.itemCount}));
     }
 
     return (
@@ -38,7 +38,7 @@ const Cart = () => {
                             <p className="text-2xl font-extrabold pt-4 font-sans">Price: ${cartItem.itemProduct.price} </p>
                             <div className="pr-80 mx-auto flex justify-start gap-2"></div>
                             <div className="pt-12 flex flex-col">
-                                <button className="lg-shadow text-xl remove_cart_button lg:w-72" onClick={() => handleRemoveButton(cartItem.itemProduct.id)}>Remove from Cart</button>
+                                <button className="lg-shadow text-xl remove_cart_button lg:w-72" onClick={() => handleRemoveButton(cartItem)}>Remove from Cart</button>
 
 
                                 <div key={index} className="quantity">
