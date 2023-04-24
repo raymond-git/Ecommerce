@@ -1,27 +1,28 @@
 import Navbar from "../components/navbar"
 import { useDispatch, useSelector } from "react-redux"
-import { totalPrice, totalPriceDeduct, removeProduct, removeCartCount, increaseItemCount, decreaseItemCount, totalCartCount } from "../redux/cartRedux";
+import { totalPriceRemove, removeProduct, removeCartCount, increaseItemCount, decreaseItemCount } from "../redux/cartRedux";
 
 const Cart = () => {
 
     const viewCart = useSelector(state => state.cart.products);
+    const item = useSelector(state => state.cart.itemCount);
     const totalCartPrice = useSelector(state => '$' + state.cart.totalPrice.toFixed(2));
     const dispatch = useDispatch();
 
     const handleIncreaseCart = (increaseItemQuantity) => {
         dispatch(increaseItemCount({ id: increaseItemQuantity.itemProduct.id, itemCount: 1 })); // Total number of quantity of the specific item
-        dispatch(totalPrice({ itemPrice: increaseItemQuantity.itemProduct.price, cartCount: 1 })); // Total price of all products in shopping cart
+        //dispatch(totalPrice({ itemPrice: increaseItemQuantity.itemProduct.price, cartCount: 1 })); // Total price of all products in shopping cart
     };
 
     const handleDecreaseCart = (decreaseItemQuantity) => {
-        dispatch(decreaseItemCount({ id: decreaseItemQuantity.itemProduct.id, itemCount: 1 }));
-        dispatch(totalPrice({ itemPrice2: decreaseItemQuantity.itemProduct.price, cartCount: 1 }))
+        dispatch(decreaseItemCount({ id: decreaseItemQuantity.itemProduct.id, itemCount: 1}));
+        //dispatch(totalPrice({ itemPrice2: decreaseItemQuantity.itemProduct.price, cartCount: 1 }))
     }
 
     const handleRemoveButton = (deleteProduct) => {
         dispatch(removeProduct({ id: deleteProduct.itemProduct.id}));
         dispatch(removeCartCount({ cartCount: 1 }));
-        dispatch(totalPrice({ itemPrice3: deleteProduct.itemProduct.price, itemCount: deleteProduct.itemCount}));
+        dispatch(totalPriceRemove({ itemPrice: deleteProduct.itemProduct.price, cartCount: 1, addProductTotalPriceCheck: true}));
     }
 
     return (
@@ -43,7 +44,7 @@ const Cart = () => {
 
                                 <div key={index} className="quantity">
                                     <a className="quantity__minus" onClick={() => handleDecreaseCart(cartItem)}><span>-</span></a>
-                                    <p name="quantity" type="text" className="quantity__input">{cartItem.itemCount || 1}</p>
+                                    <input name="quantity" type="text" className="quantity__input" placeholder={item}/>
                                     <a className="quantity__plus" onClick={() => handleIncreaseCart(cartItem)}><span>+</span></a>
                                 </div>
 
@@ -62,3 +63,6 @@ const Cart = () => {
 }
 
 export default Cart;
+
+
+

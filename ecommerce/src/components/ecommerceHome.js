@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react"
 import axios from "axios"
 import Navbar from "../components/navbar"
 import { useDispatch } from "react-redux"
-import { addProduct, totalCartCount, totalPrice, deleteProduct, removeAllProduct, itemCartCount } from "../redux/cartRedux"
-import { v4 as uuidv4 } from 'uuid';
+import { addProduct, addCartCount, totalPriceAdd, deleteProduct, removeAllProduct, itemCartCount } from "../redux/cartRedux"
 
 const EcommerceHome = () => {
     const [allProducts, setAllProducts] = useState([]);
@@ -19,24 +18,10 @@ const EcommerceHome = () => {
     }, [])
 
     const handleAddProduct = (userProduct) => {
-        dispatch(addProduct({ itemProduct: userProduct }))
-        dispatch(totalCartCount({ cartCount: 1 }))
-        dispatch(totalPrice({ itemPrice: userProduct.price, cartCount: 1 }))
+        dispatch(addProduct({ itemProduct: userProduct, itemCount: 1 }))
+        dispatch(addCartCount({ cartCount: 1 }))
+        dispatch(totalPriceAdd({ itemPrice: userProduct.price, cartCount: 1 }))
     }
-
-
-    // const handleRemoveProduct = (userProduct) => {
-    //     dispatch(
-    //         deleteProduct({
-    //             itemProduct: userProduct,
-    //             itemPrice: userProduct.price,
-    //         }));
-    // }
-
-
-    // const handleRemoveAllProduct = (userProduct) => {
-    //     dispatch(removeAllProduct(userProduct));
-    // }
 
     return (
         <div>
@@ -51,8 +36,6 @@ const EcommerceHome = () => {
                             <p className="text-2xl md:text-3xl font-bold pt-4 font-sans price_color">Price: ${product.price} </p>
                             <div className="flex flex-col justify-center pt-8">
                                 <button onClick={() => handleAddProduct(product)} className="add_cart_button lg-shadow text-base md:text-xl">Add To Cart</button>
-                                {/* <button onClick={() => handleRemoveProduct(product.id)} className="lg-shadow border p-2">Delete Cart</button>
-                                <button onClick={() => handleRemoveAllProduct(product)} className="lg-shadow border p-2">Remove Cart</button> */}
                             </div>
                         </div>
                     </div>
@@ -63,3 +46,9 @@ const EcommerceHome = () => {
 }
 
 export default EcommerceHome;
+
+
+
+
+
+
