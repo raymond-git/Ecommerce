@@ -8,6 +8,8 @@ const EcommerceHome = () => {
     const [allProducts, setAllProducts] = useState([]);
     const dispatch = useDispatch();
 
+    const [isClicked, setisClicked] = useState(JSON.parse(localStorage.getItem("isClicked")) || {});
+
     useEffect(() => {
         axios.get("https://fakestoreapi.com/products")
             .then((response) => {
@@ -17,11 +19,24 @@ const EcommerceHome = () => {
             })
     }, [])
 
-    const handleAddProduct = (userProduct) => {
-        dispatch(addProduct({ itemProduct: userProduct, itemCount: 1 }))
-        dispatch(addCartCount({ cartCount: 1 }))
-        dispatch(totalPriceAdd({ itemPrice: userProduct.price, cartCount: 1 }))
-    }
+    // const handleAddProduct = (userProduct, productID) => {
+    //     dispatch(addProduct({ itemProduct: userProduct, itemCount: 1 }))
+    //     dispatch(addCartCount({ cartCount: 1 }))
+    //     dispatch(totalPriceAdd({ itemPrice: userProduct.price, cartCount: 1 }))
+    //     setisClicked((prevState) => ({ ...prevState, [productID]: true })); //We want to have previous state to keep track of the clicked state
+    //     localStorage.setItem("isClicked", JSON.stringify(setisClicked(isClicked)));
+    // }
+    const handleAddProduct = (userProduct, changeBtnColorBasedOnId) => {
+        dispatch(addProduct({ itemProduct: userProduct, itemCount: 1 }));
+        dispatch(addCartCount({ cartCount: 1 }));
+        dispatch(totalPriceAdd({ itemPrice: userProduct.price, cartCount: 1 }));
+        setisClicked(prevState => {
+          const newState = { ...prevState, [changeBtnColorBasedOnId]: true };
+          localStorage.setItem("isClicked", JSON.stringify(newState));
+          return newState;
+        });
+      };
+    
 
     return (
         <div>
@@ -35,7 +50,11 @@ const EcommerceHome = () => {
                             <h1 className="text-xl md:text-2xl mt-10 font-sans">{product.title} </h1>
                             <p className="text-2xl md:text-3xl font-bold pt-4 font-sans price_color">Price: ${product.price} </p>
                             <div className="flex flex-col justify-center pt-8">
-                                <button onClick={() => handleAddProduct(product)} className="add_cart_button lg-shadow text-base md:text-xl">Add To Cart</button>
+                                < button disabled={isClicked[product.id]}
+                                    onClick={() => handleAddProduct(product, product.id)} className="add_cart_button lg-shadow text-base md:text-xl"
+                                    style={{ backgroundColor: isClicked[product.id] ? "#888" : "" }}>
+                                    {isClicked[product.id] ? "Added to Cart" : "Add to Cart"}
+                                </button>
                             </div>
                         </div>
                     </div>

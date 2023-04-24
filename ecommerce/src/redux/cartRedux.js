@@ -18,35 +18,24 @@ const cartSlice = createSlice({
       localStorage.setItem("itemCount", JSON.stringify(state.itemCount));
     },
 
-    // increaseItemCount: (state, action) => {
-    //   const productToUpdate = state.products.find(product => product.itemProduct.id === action.payload.id);
-    //   if (productToUpdate) {
-    //     productToUpdate.itemCount += 1;
-    //     state.itemCount += 1;
-    //     localStorage.setItem("products", JSON.stringify(state.products));
-    //     localStorage.setItem("itemCount", JSON.stringify(state.itemCount));
-    //   }
-    //   return product;
-    // },
-
     increaseItemCount: (state, action) => {
       const productToUpdate = state.products.find(product => product.itemProduct.id === action.payload.id);
       if (productToUpdate) {
         productToUpdate.itemCount += action.payload.itemCount;
         state.itemCount += action.payload.itemCount;
-        localStorage.setItem("products", JSON.stringify(state.products));
-        localStorage.setItem("itemCount", JSON.stringify(state.itemCount));
       }
+      localStorage.setItem("products", JSON.stringify(state.products));
+      localStorage.setItem("itemCount", JSON.stringify(state.itemCount));
     },
-    
+
     decreaseItemCount: (state, action) => {
       const productToUpdate = state.products.find(product => product.itemProduct.id === action.payload.id);
       if (productToUpdate !== null && productToUpdate.itemCount > 0) {
         productToUpdate.itemCount -= action.payload.itemCount;
         state.itemCount -= action.payload.itemCount;
-        localStorage.setItem("products", JSON.stringify(state.products));
-        localStorage.setItem("itemCount", JSON.stringify(state.itemCount));
       }
+      localStorage.setItem("products", JSON.stringify(state.products));
+      localStorage.setItem("itemCount", JSON.stringify(state.itemCount));
     },
 
     removeProduct: (state, action) => {

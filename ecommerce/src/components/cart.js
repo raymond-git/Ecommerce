@@ -5,7 +5,6 @@ import { totalPriceRemove, removeProduct, removeCartCount, increaseItemCount, de
 const Cart = () => {
 
     const viewCart = useSelector(state => state.cart.products);
-    const item = useSelector(state => state.cart.itemCount);
     const totalCartPrice = useSelector(state => '$' + state.cart.totalPrice.toFixed(2));
     const dispatch = useDispatch();
 
@@ -15,14 +14,14 @@ const Cart = () => {
     };
 
     const handleDecreaseCart = (decreaseItemQuantity) => {
-        dispatch(decreaseItemCount({ id: decreaseItemQuantity.itemProduct.id, itemCount: 1}));
+        dispatch(decreaseItemCount({ id: decreaseItemQuantity.itemProduct.id, itemCount: 1 }));
         //dispatch(totalPrice({ itemPrice2: decreaseItemQuantity.itemProduct.price, cartCount: 1 }))
     }
 
     const handleRemoveButton = (deleteProduct) => {
-        dispatch(removeProduct({ id: deleteProduct.itemProduct.id}));
+        dispatch(removeProduct({ id: deleteProduct.itemProduct.id }));
         dispatch(removeCartCount({ cartCount: 1 }));
-        dispatch(totalPriceRemove({ itemPrice: deleteProduct.itemProduct.price, cartCount: 1, addProductTotalPriceCheck: true}));
+        dispatch(totalPriceRemove({ itemPrice: deleteProduct.itemProduct.price, cartCount: 1, addProductTotalPriceCheck: true }));
     }
 
     return (
@@ -44,7 +43,7 @@ const Cart = () => {
 
                                 <div key={index} className="quantity">
                                     <a className="quantity__minus" onClick={() => handleDecreaseCart(cartItem)}><span>-</span></a>
-                                    <input name="quantity" type="text" className="quantity__input" placeholder={item}/>
+                                    <input name="quantity" type="text" className="quantity__input" value={cartItem.itemCount} />
                                     <a className="quantity__plus" onClick={() => handleIncreaseCart(cartItem)}><span>+</span></a>
                                 </div>
 
