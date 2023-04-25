@@ -1,6 +1,7 @@
 import Navbar from "../components/navbar"
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { totalPriceRemove, removeProduct, removeCartCount, increaseItemCount, decreaseItemCount } from "../redux/cartRedux";
+import { totalPriceAdd, totalPriceRemove, removeProduct, removeCartCount, increaseItemCount, decreaseItemCount, buttonChanges } from "../redux/cartRedux";
 
 const Cart = () => {
 
@@ -10,12 +11,12 @@ const Cart = () => {
 
     const handleIncreaseCart = (increaseItemQuantity) => {
         dispatch(increaseItemCount({ id: increaseItemQuantity.itemProduct.id, itemCount: 1 })); // Total number of quantity of the specific item
-        //dispatch(totalPrice({ itemPrice: increaseItemQuantity.itemProduct.price, cartCount: 1 })); // Total price of all products in shopping cart
+        dispatch(totalPriceAdd({ id: increaseItemQuantity.itemProduct.id, itemPrice: increaseItemQuantity.itemProduct.price, itemCount: 1, cartCount: 1 }));
     };
 
     const handleDecreaseCart = (decreaseItemQuantity) => {
         dispatch(decreaseItemCount({ id: decreaseItemQuantity.itemProduct.id, itemCount: 1 }));
-        //dispatch(totalPrice({ itemPrice2: decreaseItemQuantity.itemProduct.price, cartCount: 1 }))
+        dispatch(totalPriceRemove({ id: decreaseItemQuantity.itemProduct.id, itemPrice: decreaseItemQuantity.itemProduct.price, itemCount: 1, cartCount: 1 }))
     }
 
     const handleRemoveButton = (deleteProduct) => {

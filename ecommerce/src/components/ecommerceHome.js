@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import Navbar from "../components/navbar"
-import { useDispatch } from "react-redux"
-import { addProduct, addCartCount, totalPriceAdd, deleteProduct, removeAllProduct, itemCartCount } from "../redux/cartRedux"
+import { useDispatch, useSelector } from "react-redux"
+import { addProduct, addCartCount, totalPriceAdd, buttonChanges } from "../redux/cartRedux"
+
 
 const EcommerceHome = () => {
     const [allProducts, setAllProducts] = useState([]);
     const dispatch = useDispatch();
 
-    const [isClicked, setisClicked] = useState(JSON.parse(localStorage.getItem("isClicked")) || {});
+    const isClicked = useSelector(state => state.cart.buttonChanges);
 
     useEffect(() => {
         axios.get("https://fakestoreapi.com/products")
@@ -30,11 +31,7 @@ const EcommerceHome = () => {
         dispatch(addProduct({ itemProduct: userProduct, itemCount: 1 }));
         dispatch(addCartCount({ cartCount: 1 }));
         dispatch(totalPriceAdd({ itemPrice: userProduct.price, cartCount: 1 }));
-        setisClicked(prevState => {
-          const newState = { ...prevState, [changeBtnColorBasedOnId]: true };
-          localStorage.setItem("isClicked", JSON.stringify(newState));
-          return newState;
-        });
+        dispatch(buttonChanges({changeColor: changeBtnColorBasedOnId}));
       };
     
 
@@ -50,11 +47,15 @@ const EcommerceHome = () => {
                             <h1 className="text-xl md:text-2xl mt-10 font-sans">{product.title} </h1>
                             <p className="text-2xl md:text-3xl font-bold pt-4 font-sans price_color">Price: ${product.price} </p>
                             <div className="flex flex-col justify-center pt-8">
-                                < button disabled={isClicked[product.id]}
-                                    onClick={() => handleAddProduct(product, product.id)} className="add_cart_button lg-shadow text-base md:text-xl"
-                                    style={{ backgroundColor: isClicked[product.id] ? "#888" : "" }}>
+                                <button
+                                    className="add_cart_button lg-shadow text-base md:text-xl"
+                                    style={{ backgroundColor: isClicked[product.id] ? "#888" : "" }}
+                                    onClick={() => handleAddProduct(product, product.id)}
+                                    disabled={isClicked[product.id]}
+                                >
                                     {isClicked[product.id] ? "Added to Cart" : "Add to Cart"}
                                 </button>
+
                             </div>
                         </div>
                     </div>
