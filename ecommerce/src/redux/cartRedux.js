@@ -19,6 +19,11 @@ const cartSlice = createSlice({
       localStorage.setItem("itemQuantity", JSON.stringify(state.itemQuantity));
     },
 
+    addCartCount: (state, action) => {
+      state.cartCount += action.payload.cartCount;
+      localStorage.setItem("cartCount", JSON.stringify(state.cartCount));
+    },
+
     increaseProductQuantity: (state, action) => {
       const productToUpdate = state.products.find(product => product.itemProduct.id === action.payload.id);
       if (productToUpdate) {
@@ -55,19 +60,6 @@ const cartSlice = createSlice({
       }
     },
 
-    removeAllProduct: (state, action) => {
-      state.products = [];
-      state.quantity = 0;
-      state.cartCount = 0;
-      state.totalPrice = 0;
-      state.itemQuantity = 0;
-    },
-
-    addCartCount: (state, action) => {
-      state.cartCount += action.payload.cartCount;
-      localStorage.setItem("cartCount", JSON.stringify(state.cartCount));
-    },
-
     removeCartCount: (state, action) => {
       state.cartCount -= action.payload.cartCount;
       if (state.cartCount < 1) {
@@ -76,9 +68,16 @@ const cartSlice = createSlice({
       localStorage.setItem("cartCount", JSON.stringify(state.cartCount));
     },
 
+    removeAllProduct: (state, action) => {
+      state.products = [];
+      state.quantity = 0;
+      state.cartCount = 0;
+      state.totalPrice = 0;
+      state.itemQuantity = 0;
+    },
+
     totalPriceIncrementing: (state, action) => {
       const productToUpdate = state.products.find(product => product.itemProduct.id === action.payload.id);
-
       if (productToUpdate) {
         state.totalPrice = state.products.reduce((total, product) => { //Cacluate the price based on itemQuantity
           return total + (product.itemProduct.price * product.itemQuantity)
@@ -110,5 +109,5 @@ const cartSlice = createSlice({
 // What this does is it collect all redux actions and a reducer function that handles those actions
 // The cartSlice slice has one action creator defined, addProduct, which takes an itemProduct object 
 // as a payload and adds it to the products array in the slice's state. The reducer function for the slice handles this action and updates the slice's state accordingly.
-export const { addProduct, removeProduct, removeCartCount, increaseProductQuantity, decreaseProductQuantity, addCartCount, totalPriceIncrementing, totalPriceDecrementing, removeAllProduct, buttonChanges } = cartSlice.actions
+export const { addProduct, addCartCount, increaseProductQuantity, decreaseProductQuantity, removeProduct, removeCartCount, removeAllProduct, totalPriceIncrementing, totalPriceDecrementing, buttonChanges } = cartSlice.actions
 export default cartSlice.reducer;

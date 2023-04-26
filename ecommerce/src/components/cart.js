@@ -1,5 +1,4 @@
 import Navbar from "../components/navbar"
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { totalPriceIncrementing, totalPriceDecrementing, increaseProductQuantity, decreaseProductQuantity, removeProduct, removeCartCount } from "../redux/cartRedux";
 

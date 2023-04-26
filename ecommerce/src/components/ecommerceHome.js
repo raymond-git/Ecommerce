@@ -20,20 +20,13 @@ const EcommerceHome = () => {
             })
     }, [])
 
-    // const handleAddProduct = (userProduct, productID) => {
-    //     dispatch(addProduct({ itemProduct: userProduct, itemQuantity: 1 }))
-    //     dispatch(addCartCount({ cartCount: 1 }))
-    //     dispatch(totalPriceAdd({ itemPrice: userProduct.price, cartCount: 1 }))
-    //     setisClicked((prevState) => ({ ...prevState, [productID]: true })); //We want to have previous state to keep track of the clicked state
-    //     localStorage.setItem("isClicked", JSON.stringify(setisClicked(isClicked)));
-    // }
     const handleAddProduct = (userProduct, changeBtnColorBasedOnId) => {
         dispatch(addProduct({ itemProduct: userProduct, itemQuantity: 1 }));
         dispatch(addCartCount({ cartCount: 1 }));
         dispatch(totalPriceIncrementing({ itemPrice: userProduct.price, cartCount: 1 }));
-        dispatch(buttonChanges({changeColor: changeBtnColorBasedOnId}));
-      };
-    
+        dispatch(buttonChanges({ changeColor: changeBtnColorBasedOnId }));
+    };
+
 
     return (
         <div>
