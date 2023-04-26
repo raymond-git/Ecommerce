@@ -26,18 +26,19 @@ const Cart = () => {
     return (
         <div>
             <Navbar></Navbar>
-            <div className="p-20">
-                <h1 className="text-5xl font-semibold pb-8">Shopping Cart</h1>
+            {/* p-20 */}
+            <div className="p-14 shopping_cart_background_color">
+                <h1 className="text-4xl font-bold pb-16 mt-6 font-merriweather">Shopping Cart</h1>
                 {viewCart.map((cartItem, index) => (
                     <div key={index}>
-                        <div className="border lg-shadow w-full h-full p-20 mb-8">
+                        <div className="shopping_cart_border_color rounded-xl lg-shadow  w-full h-full p-10 mb-8">
                             <img className="w-44 h-44 mx-auto" src={cartItem.itemProduct.image}></img>
-                            <h1 className="text-base md:text-xl font-bold mt-10 font-sans">{cartItem.itemProduct.title} </h1>
-                            <p className="text-base md:text-lg font-sans pt-4">{cartItem.itemProduct.description} </p>
-                            <p className="text-2xl font-extrabold pt-4 font-sans">Price: ${cartItem.itemProduct.price} </p>
-                            <div className="pr-80 mx-auto flex justify-start gap-2"></div>
-                            <div className="pt-12 flex flex-col">
-                                <button className="lg-shadow text-xl remove_cart_button lg:w-72" onClick={() => handleRemoveButton(cartItem)}>Remove from Cart</button>
+                            <h1 className="text-lg md:text-xl font-bold mt-10 font-merriweather">{cartItem.itemProduct.title} </h1>
+                            <p className="text-sm md:text-lg leading-6 pt-4 ">{cartItem.itemProduct.description} </p>
+                            <p className="text-base md:text-lg font-extrabold pt-4 font-merriweather">Price: ${cartItem.itemProduct.price} </p>
+                            {/* <div className="pr-80 mx-auto flex justify-start gap-2"></div> */}
+                            <div className="pt-8 flex flex-col gap-4">
+                                <button className="lg-shadow text-sm md:text-base remove_cart_button lg:w-60 lg:h-12 font-merriweather" onClick={() => handleRemoveButton(cartItem)}>Remove from Cart</button>
 
 
                                 <div key={index} className="quantity">

@@ -16,12 +16,30 @@ code {
     monospace;
 }
 
+.ecommerce_background_color {
+  /* background-color: #F5F5FF; */
+  background-color: #F0F8FF;
+}
+
+.ecommerce_border_color {
+  background-color: white;
+}
+
+.shopping_cart_background_color {
+  /* background-color: #F5F5FF; */
+  background-color: #F0F8FF;
+}
+
+.shopping_cart_border_color{
+  background-color: white;
+}
+
 .add_cart_button {
   background-color: black;
   font-weight: bold;
   color: white;
   border-style: solid;
-  padding: 1rem;
+  padding: 0.75rem;
 }
 
 .remove_cart_button {
@@ -29,7 +47,7 @@ code {
   font-weight: bold;
   color: white;
   border-style: solid;
-  padding: 1rem;
+  padding: 0.75rem;
 }
 
 .price_color {
