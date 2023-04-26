@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import axios from "axios"
 import Navbar from "../components/navbar"
 import { useDispatch, useSelector } from "react-redux"
-import { addProduct, addCartCount, totalPriceAdd, buttonChanges } from "../redux/cartRedux"
+import { addProduct, addCartCount, buttonChanges, totalPriceIncrementing } from "../redux/cartRedux"
 
 
 const EcommerceHome = () => {
@@ -21,16 +21,16 @@ const EcommerceHome = () => {
     }, [])
 
     // const handleAddProduct = (userProduct, productID) => {
-    //     dispatch(addProduct({ itemProduct: userProduct, itemCount: 1 }))
+    //     dispatch(addProduct({ itemProduct: userProduct, itemQuantity: 1 }))
     //     dispatch(addCartCount({ cartCount: 1 }))
     //     dispatch(totalPriceAdd({ itemPrice: userProduct.price, cartCount: 1 }))
     //     setisClicked((prevState) => ({ ...prevState, [productID]: true })); //We want to have previous state to keep track of the clicked state
     //     localStorage.setItem("isClicked", JSON.stringify(setisClicked(isClicked)));
     // }
     const handleAddProduct = (userProduct, changeBtnColorBasedOnId) => {
-        dispatch(addProduct({ itemProduct: userProduct, itemCount: 1 }));
+        dispatch(addProduct({ itemProduct: userProduct, itemQuantity: 1 }));
         dispatch(addCartCount({ cartCount: 1 }));
-        dispatch(totalPriceAdd({ itemPrice: userProduct.price, cartCount: 1 }));
+        dispatch(totalPriceIncrementing({ itemPrice: userProduct.price, cartCount: 1 }));
         dispatch(buttonChanges({changeColor: changeBtnColorBasedOnId}));
       };
     

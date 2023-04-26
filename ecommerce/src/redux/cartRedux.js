@@ -5,7 +5,7 @@ const cartSlice = createSlice({
   initialState: {
     products: JSON.parse(localStorage.getItem('products')) || [],
     cartCount: JSON.parse(localStorage.getItem('cartCount')) || 0,
-    itemCount: JSON.parse(localStorage.getItem('itemCount')) ?? 0,
+    itemQuantity: JSON.parse(localStorage.getItem('itemQuantity')) ?? 0,
     totalPrice: JSON.parse(localStorage.getItem('totalPrice')) || 0,
     buttonChanges: JSON.parse(localStorage.getItem('buttonChanges')) || {},
   },
@@ -14,29 +14,29 @@ const cartSlice = createSlice({
     // Each time we add to Cart the item is pushed to products array
     addProduct: (state, action) => {
       state.products.push(action.payload);
-      state.itemCount += action.payload.itemCount;
+      state.itemQuantity += action.payload.itemQuantity;
       localStorage.setItem("products", JSON.stringify(state.products));
-      localStorage.setItem("itemCount", JSON.stringify(state.itemCount));
+      localStorage.setItem("itemQuantity", JSON.stringify(state.itemQuantity));
     },
 
     increaseProductQuantity: (state, action) => {
       const productToUpdate = state.products.find(product => product.itemProduct.id === action.payload.id);
       if (productToUpdate) {
-        productToUpdate.itemCount += action.payload.itemCount;
-        state.itemCount += action.payload.itemCount;
+        productToUpdate.itemQuantity += action.payload.itemQuantity;
+        state.itemQuantity += action.payload.itemQuantity;
       }
       localStorage.setItem("products", JSON.stringify(state.products));
-      localStorage.setItem("itemCount", JSON.stringify(state.itemCount));
+      localStorage.setItem("itemQuantity", JSON.stringify(state.itemQuantity));
     },
 
     decreaseProductQuantity: (state, action) => {
       const productToUpdate = state.products.find(product => product.itemProduct.id === action.payload.id);
-      if (productToUpdate !== null && productToUpdate.itemCount > 0) {
-        productToUpdate.itemCount -= action.payload.itemCount;
-        state.itemCount -= action.payload.itemCount;
+      if (productToUpdate !== null && productToUpdate.itemQuantity > 0) {
+        productToUpdate.itemQuantity -= action.payload.itemQuantity;
+        state.itemQuantity -= action.payload.itemQuantity;
       }
       localStorage.setItem("products", JSON.stringify(state.products));
-      localStorage.setItem("itemCount", JSON.stringify(state.itemCount));
+      localStorage.setItem("itemQuantity", JSON.stringify(state.itemQuantity));
     },
 
     removeProduct: (state, action) => {
@@ -45,10 +45,12 @@ const cartSlice = createSlice({
         const currentArray = [...state.products];
         const modifyItem = currentArray.splice(productToRemove, 1)[0];
         state.products = currentArray;
-        state.itemCount -= modifyItem.itemCount; // Update itemCount for removed product
-        state.totalPrice -= modifyItem.itemProduct.price * modifyItem.itemCount; // Update totalPrice for removed product
+        state.itemQuantity -= modifyItem.itemQuantity; // Update itemQuantity for removed product
+        state.totalPrice = state.products.reduce((total, product) => {
+          return total + (product.itemProduct.price * product.itemQuantity);
+        }, 0); // Recalculate totalPrice based on remaining products
         localStorage.setItem('products', JSON.stringify(state.products));
-        localStorage.setItem('itemCount', JSON.stringify(state.itemCount));
+        localStorage.setItem('itemQuantity', JSON.stringify(state.itemQuantity));
         localStorage.setItem('totalPrice', JSON.stringify(parseFloat(state.totalPrice.toFixed(2))));
       }
     },
@@ -58,7 +60,7 @@ const cartSlice = createSlice({
       state.quantity = 0;
       state.cartCount = 0;
       state.totalPrice = 0;
-      state.itemCount = 0;
+      state.itemQuantity = 0;
     },
 
     addCartCount: (state, action) => {
@@ -74,27 +76,25 @@ const cartSlice = createSlice({
       localStorage.setItem("cartCount", JSON.stringify(state.cartCount));
     },
 
-    totalPriceAdd: (state, action) => {
+    totalPriceIncrementing: (state, action) => {
       const productToUpdate = state.products.find(product => product.itemProduct.id === action.payload.id);
 
       if (productToUpdate) {
-        const price = state.products.reduce((total, product) => { //Cacluate the price based on itemCount
-          return total + (product.itemProduct.price * product.itemCount)
+        state.totalPrice = state.products.reduce((total, product) => { //Cacluate the price based on itemQuantity
+          return total + (product.itemProduct.price * product.itemQuantity)
         }, 0);
-        state.totalPrice = price;
       } else {
         state.totalPrice += action.payload.itemPrice * action.payload.cartCount; //Calculate the price based on cartCount
       }
       localStorage.setItem("totalPrice", JSON.stringify(parseFloat(state.totalPrice.toFixed(2))));
     },
 
-    totalPriceRemove: (state, action) => {
+    totalPriceDecrementing: (state, action) => {
       const productToUpdate = state.products.find(product => product.itemProduct.id === action.payload.id);
       if (productToUpdate) {
-        const price = state.products.reduce((total, product) => { //Cacluate the price based on itemCount
-          return total - (product.itemProduct.price * product.itemCount)
+        state.totalPrice = state.products.reduce((total, product) => { //Cacluate the price based on itemQuantity
+          return total - (product.itemProduct.price * product.itemQuantity)
         }, 0);
-        state.totalPrice = price;
       } else {
         state.totalPrice -= action.payload.itemPrice * action.payload.cartCount; //Calculate the price based on cartCount
       }
@@ -110,5 +110,5 @@ const cartSlice = createSlice({
 // What this does is it collect all redux actions and a reducer function that handles those actions
 // The cartSlice slice has one action creator defined, addProduct, which takes an itemProduct object 
 // as a payload and adds it to the products array in the slice's state. The reducer function for the slice handles this action and updates the slice's state accordingly.
-export const { addProduct, buttonChanges, buttonChanges2, removeProduct, removeCartCount, increaseProductQuantity, decreaseProductQuantity, addCartCount, totalPriceAdd, totalPriceRemove, totalPrice, removeAllProduct } = cartSlice.actions
+export const { addProduct, removeProduct, removeCartCount, increaseProductQuantity, decreaseProductQuantity, addCartCount, totalPriceIncrementing, totalPriceDecrementing, removeAllProduct, buttonChanges } = cartSlice.actions
 export default cartSlice.reducer;

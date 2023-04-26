@@ -1,7 +1,7 @@
 import Navbar from "../components/navbar"
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { totalPriceAdd, totalPriceRemove, removeProduct, removeCartCount, increaseProductQuantity, decreaseProductQuantity } from "../redux/cartRedux";
+import { totalPriceIncrementing, totalPriceDecrementing, increaseProductQuantity, decreaseProductQuantity, removeProduct, removeCartCount } from "../redux/cartRedux";
 
 const Cart = () => {
 
@@ -10,13 +10,13 @@ const Cart = () => {
     const dispatch = useDispatch();
 
     const handleIncreaseCart = (increaseItemQuantity) => {
-        dispatch(increaseProductQuantity({ id: increaseItemQuantity.itemProduct.id, itemCount: 1 })); // Total number of quantity of the specific item
-        dispatch(totalPriceAdd({ id: increaseItemQuantity.itemProduct.id, itemPrice: increaseItemQuantity.itemProduct.price, itemCount: 1, cartCount: 1 }));
+        dispatch(increaseProductQuantity({ id: increaseItemQuantity.itemProduct.id, itemQuantity: 1 })); // Total number of quantity of the specific item
+        dispatch(totalPriceIncrementing({ id: increaseItemQuantity.itemProduct.id, itemPrice: increaseItemQuantity.itemProduct.price, itemQuantity: 1, cartCount: 1 }));
     };
 
     const handleDecreaseCart = (decreaseItemQuantity) => {
-        dispatch(decreaseProductQuantity({ id: decreaseItemQuantity.itemProduct.id, itemCount: 1 }));
-        dispatch(totalPriceRemove({ id: decreaseItemQuantity.itemProduct.id, itemPrice: decreaseItemQuantity.itemProduct.price, itemCount: 1, cartCount: 1 }))
+        dispatch(decreaseProductQuantity({ id: decreaseItemQuantity.itemProduct.id, itemQuantity: 1 }));
+        dispatch(totalPriceDecrementing({ id: decreaseItemQuantity.itemProduct.id, itemPrice: decreaseItemQuantity.itemProduct.price, itemQuantity: 1, cartCount: 1 }))
     }
 
     const handleRemoveButton = (deleteProduct) => {
@@ -43,7 +43,7 @@ const Cart = () => {
 
                                 <div key={index} className="quantity">
                                     <a className="quantity__minus" onClick={() => handleDecreaseCart(cartItem)}><span>-</span></a>
-                                    <input name="quantity" type="text" className="quantity__input" value={cartItem.itemCount} />
+                                    <input name="quantity" type="text" className="quantity__input" value={cartItem.itemQuantity} />
                                     <a className="quantity__plus" onClick={() => handleIncreaseCart(cartItem)}><span>+</span></a>
                                 </div>
 
