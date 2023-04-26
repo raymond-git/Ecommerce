@@ -7,7 +7,7 @@ const cartSlice = createSlice({
     cartCount: JSON.parse(localStorage.getItem('cartCount')) || 0,
     itemCount: JSON.parse(localStorage.getItem('itemCount')) ?? 0,
     totalPrice: JSON.parse(localStorage.getItem('totalPrice')) || 0,
-    buttonChanges:JSON.parse(localStorage.getItem('buttonChanges')) || {},
+    buttonChanges: JSON.parse(localStorage.getItem('buttonChanges')) || {},
   },
 
   reducers: {
@@ -19,12 +19,7 @@ const cartSlice = createSlice({
       localStorage.setItem("itemCount", JSON.stringify(state.itemCount));
     },
 
-    buttonChanges: (state, action) => {
-      state.buttonChanges[action.payload.changeColor] = true;
-      //localStorage.setItem("buttonChanges", JSON.stringify(state.buttonChanges));
-    },
-
-    increaseItemCount: (state, action) => {
+    increaseProductQuantity: (state, action) => {
       const productToUpdate = state.products.find(product => product.itemProduct.id === action.payload.id);
       if (productToUpdate) {
         productToUpdate.itemCount += action.payload.itemCount;
@@ -34,7 +29,7 @@ const cartSlice = createSlice({
       localStorage.setItem("itemCount", JSON.stringify(state.itemCount));
     },
 
-    decreaseItemCount: (state, action) => {
+    decreaseProductQuantity: (state, action) => {
       const productToUpdate = state.products.find(product => product.itemProduct.id === action.payload.id);
       if (productToUpdate !== null && productToUpdate.itemCount > 0) {
         productToUpdate.itemCount -= action.payload.itemCount;
@@ -50,11 +45,11 @@ const cartSlice = createSlice({
         const currentArray = [...state.products];
         const modifyItem = currentArray.splice(productToRemove, 1)[0];
         state.products = currentArray;
-
-        // Update itemCount for removed product
-        state.itemCount -= modifyItem.itemCount;
+        state.itemCount -= modifyItem.itemCount; // Update itemCount for removed product
+        state.totalPrice -= modifyItem.itemProduct.price * modifyItem.itemCount; // Update totalPrice for removed product
         localStorage.setItem('products', JSON.stringify(state.products));
         localStorage.setItem('itemCount', JSON.stringify(state.itemCount));
+        localStorage.setItem('totalPrice', JSON.stringify(parseFloat(state.totalPrice.toFixed(2))));
       }
     },
 
@@ -92,7 +87,7 @@ const cartSlice = createSlice({
       }
       localStorage.setItem("totalPrice", JSON.stringify(parseFloat(state.totalPrice.toFixed(2))));
     },
-  
+
     totalPriceRemove: (state, action) => {
       const productToUpdate = state.products.find(product => product.itemProduct.id === action.payload.id);
       if (productToUpdate) {
@@ -105,11 +100,15 @@ const cartSlice = createSlice({
       }
       localStorage.setItem("totalPrice", JSON.stringify(parseFloat(state.totalPrice.toFixed(2))));
     },
+
+    buttonChanges: (state, action) => {
+      state.buttonChanges[action.payload.changeColor] = true;
+    },
   },
 });
 
 // What this does is it collect all redux actions and a reducer function that handles those actions
 // The cartSlice slice has one action creator defined, addProduct, which takes an itemProduct object 
 // as a payload and adds it to the products array in the slice's state. The reducer function for the slice handles this action and updates the slice's state accordingly.
-export const { addProduct, buttonChanges, buttonChanges2, removeProduct, removeCartCount, increaseItemCount, decreaseItemCount, addCartCount, totalPriceAdd, totalPriceRemove, totalPriceDeduct, deductTotalPrice, removeAllProduct } = cartSlice.actions
+export const { addProduct, buttonChanges, buttonChanges2, removeProduct, removeCartCount, increaseProductQuantity, decreaseProductQuantity, addCartCount, totalPriceAdd, totalPriceRemove, totalPrice, removeAllProduct } = cartSlice.actions
 export default cartSlice.reducer;

@@ -1,7 +1,7 @@
 import Navbar from "../components/navbar"
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { totalPriceAdd, totalPriceRemove, removeProduct, removeCartCount, increaseItemCount, decreaseItemCount, buttonChanges } from "../redux/cartRedux";
+import { totalPriceAdd, totalPriceRemove, removeProduct, removeCartCount, increaseProductQuantity, decreaseProductQuantity } from "../redux/cartRedux";
 
 const Cart = () => {
 
@@ -10,19 +10,18 @@ const Cart = () => {
     const dispatch = useDispatch();
 
     const handleIncreaseCart = (increaseItemQuantity) => {
-        dispatch(increaseItemCount({ id: increaseItemQuantity.itemProduct.id, itemCount: 1 })); // Total number of quantity of the specific item
+        dispatch(increaseProductQuantity({ id: increaseItemQuantity.itemProduct.id, itemCount: 1 })); // Total number of quantity of the specific item
         dispatch(totalPriceAdd({ id: increaseItemQuantity.itemProduct.id, itemPrice: increaseItemQuantity.itemProduct.price, itemCount: 1, cartCount: 1 }));
     };
 
     const handleDecreaseCart = (decreaseItemQuantity) => {
-        dispatch(decreaseItemCount({ id: decreaseItemQuantity.itemProduct.id, itemCount: 1 }));
+        dispatch(decreaseProductQuantity({ id: decreaseItemQuantity.itemProduct.id, itemCount: 1 }));
         dispatch(totalPriceRemove({ id: decreaseItemQuantity.itemProduct.id, itemPrice: decreaseItemQuantity.itemProduct.price, itemCount: 1, cartCount: 1 }))
     }
 
     const handleRemoveButton = (deleteProduct) => {
         dispatch(removeProduct({ id: deleteProduct.itemProduct.id }));
         dispatch(removeCartCount({ cartCount: 1 }));
-        dispatch(totalPriceRemove({ itemPrice: deleteProduct.itemProduct.price, cartCount: 1, addProductTotalPriceCheck: true }));
     }
 
     return (
