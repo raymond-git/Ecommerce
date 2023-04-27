@@ -5,10 +5,12 @@ import { totalPriceIncrementing, totalPriceDecrementing, increaseProductQuantity
 
 const Cart = () => {
 
-    const [userInput, setUserInput] = useState('');
+    const [userInput, setUserInput] = useState(null);
+    const [discounted, setDiscounted] = useState(0);
+    const [finalPrice, setFinalPrice] = useState(0);
 
     const viewCart = useSelector(state => state.cart.products);
-    const totalCartPrice = useSelector(state => '$' + state.cart.totalPrice.toFixed(2));
+    const totalCartPrice = useSelector(state => state.cart.totalPrice.toFixed(2));
     const dispatch = useDispatch();
 
     const handleIncreaseCart = (increaseItemQuantity) => {
@@ -26,9 +28,31 @@ const Cart = () => {
         dispatch(removeCartCount({ cartCount: 1 }));
     }
 
-    function handlePromoCode (event) {
+    const userPromoCode = (event) => {
         setUserInput(event.target.value);
         console.log(userInput);
+    }
+
+    const calculateDiscountedPrice = (totalPrice) => {
+        if (userInput !== null) {
+            const originalPrice = totalPrice;
+            const discountPercentage = 0.20;
+            const discountAmount = originalPrice * discountPercentage;
+            setDiscounted(discountAmount.toFixed(2));
+        }
+    };
+
+    const handleDiscountAndFinalPrice = (totalPrice) => {
+        const originalPrice = totalPrice;
+        const discountPercentage = 0.20;
+        const discountAmount = originalPrice * discountPercentage;
+        const discountedPrice = originalPrice - discountAmount;
+        setFinalPrice(discountedPrice.toFixed(2));
+    }
+
+    const handleDiscountandTotal = (totalPrice) => {
+        calculateDiscountedPrice(totalPrice)
+        handleDiscountAndFinalPrice(totalPrice);
     }
 
     return (
@@ -44,7 +68,6 @@ const Cart = () => {
                             <h1 className="text-lg md:text-xl font-bold mt-10 font-merriweather">{cartItem.itemProduct.title} </h1>
                             <p className="text-sm md:text-lg leading-6 pt-4 ">{cartItem.itemProduct.description} </p>
                             <p className="text-base md:text-lg font-extrabold pt-4 font-merriweather">Price: ${cartItem.itemProduct.price} </p>
-                            {/* <div className="pr-80 mx-auto flex justify-start gap-2"></div> */}
                             <div className="pt-8 flex flex-col gap-4">
                                 <button className="lg-shadow text-sm md:text-base remove_cart_button lg:w-60 lg:h-12 font-merriweather" onClick={() => handleRemoveButton(cartItem)}>Remove from Cart</button>
 
@@ -60,11 +83,10 @@ const Cart = () => {
                     </div>
                 ))}
 
-              
                 <div className="promocode_border_color rounded-xl lg-shadow w-full h-full p-10 mb-8">
                     <div className="flex justify-center">
-                        <input type="text" value={userInput} onChange={handlePromoCode}  className="promocode_placeholder text-sm font-merriweather" placeholder=" Promocode" />
-                        <button className="bg-black text-white text-xs font-merriweather px-8">Apply</button>
+                        <input type="text" value={userInput} onChange={userPromoCode} className="promocode_placeholder text-sm font-merriweather" placeholder=" Promocode" />
+                        <button onClick={() => handleDiscountandTotal(totalCartPrice)} className="bg-black text-white text-xs font-merriweather px-8">Apply</button>
                     </div>
                     <p className="text-xs mt-2 text-gray-400">20% off discount</p>
                     <div className="border-2 mt-8"></div>
@@ -73,22 +95,20 @@ const Cart = () => {
                         <div>{totalCartPrice}</div>
                     </div>
                     <div className="flex justify-between mt-4">
-                        <div>Discount:</div>
-                        <div>{totalCartPrice}</div>
+                        <div id="calculate_discount">Discount:</div>
+                        <div>$ -{discounted}</div>
                     </div>
                     <div className="border-2 mt-8"></div>
                     <div className="flex justify-between mt-4">
                         <div>Total:</div>
-                        <div>{totalCartPrice}</div>
+                        <div>$ {finalPrice}</div>
                     </div>
                 </div>
-                
             </div>
 
             <div className="border lg-shadow">
                 <p>Total: {totalCartPrice}</p>
             </div>
-
         </div>
     )
 }
