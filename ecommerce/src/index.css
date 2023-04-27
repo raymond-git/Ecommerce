@@ -50,6 +50,18 @@ code {
   padding: 0.75rem;
 }
 
+.promocode_placeholder {
+  background-color: white;
+  
+ 
+  padding: 0.25rem;
+  border: solid 1px black;
+}
+
+.promocode_border_color {
+  background-color: white;
+}
+
 .price_color {
   color: #0f1111
 }

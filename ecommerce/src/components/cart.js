@@ -1,8 +1,11 @@
 import Navbar from "../components/navbar"
 import { useDispatch, useSelector } from "react-redux"
+import { useState } from "react";
 import { totalPriceIncrementing, totalPriceDecrementing, increaseProductQuantity, decreaseProductQuantity, removeProduct, removeCartCount } from "../redux/cartRedux";
 
 const Cart = () => {
+
+    const [userInput, setUserInput] = useState('');
 
     const viewCart = useSelector(state => state.cart.products);
     const totalCartPrice = useSelector(state => '$' + state.cart.totalPrice.toFixed(2));
@@ -23,15 +26,20 @@ const Cart = () => {
         dispatch(removeCartCount({ cartCount: 1 }));
     }
 
+    function handlePromoCode (event) {
+        setUserInput(event.target.value);
+        console.log(userInput);
+    }
+
     return (
         <div>
             <Navbar></Navbar>
             {/* p-20 */}
             <div className="p-14 shopping_cart_background_color">
-                <h1 className="text-4xl font-bold pb-16 mt-6 font-merriweather">Shopping Cart</h1>
+                <h1 className="text-3xl md:text-4xl font-bold pb-16 mt-6 font-merriweather">Shopping Cart</h1>
                 {viewCart.map((cartItem, index) => (
                     <div key={index}>
-                        <div className="shopping_cart_border_color rounded-xl lg-shadow  w-full h-full p-10 mb-8">
+                        <div className="shopping_cart_border_color rounded-xl lg-shadow w-full h-full p-10 mb-8">
                             <img className="w-44 h-44 mx-auto" src={cartItem.itemProduct.image}></img>
                             <h1 className="text-lg md:text-xl font-bold mt-10 font-merriweather">{cartItem.itemProduct.title} </h1>
                             <p className="text-sm md:text-lg leading-6 pt-4 ">{cartItem.itemProduct.description} </p>
@@ -51,6 +59,30 @@ const Cart = () => {
                         </div>
                     </div>
                 ))}
+
+              
+                <div className="promocode_border_color rounded-xl lg-shadow w-full h-full p-10 mb-8">
+                    <div className="flex justify-center">
+                        <input type="text" value={userInput} onChange={handlePromoCode}  className="promocode_placeholder text-sm font-merriweather" placeholder=" Promocode" />
+                        <button className="bg-black text-white text-xs font-merriweather px-8">Apply</button>
+                    </div>
+                    <p className="text-xs mt-2 text-gray-400">20% off discount</p>
+                    <div className="border-2 mt-8"></div>
+                    <div className="flex justify-between mt-8">
+                        <div>Subtotal:</div>
+                        <div>{totalCartPrice}</div>
+                    </div>
+                    <div className="flex justify-between mt-4">
+                        <div>Discount:</div>
+                        <div>{totalCartPrice}</div>
+                    </div>
+                    <div className="border-2 mt-8"></div>
+                    <div className="flex justify-between mt-4">
+                        <div>Total:</div>
+                        <div>{totalCartPrice}</div>
+                    </div>
+                </div>
+                
             </div>
 
             <div className="border lg-shadow">
