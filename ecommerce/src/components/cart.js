@@ -6,12 +6,12 @@ import { totalPriceIncrementing, totalPriceDecrementing, increaseProductQuantity
 const Cart = () => {
 
     const [userInput, setUserInput] = useState('');
-    const [discountApplied, setDiscountApplied] = useState(false);
 
     const viewCart = useSelector(state => state.cart.products);
     const viewDiscount = useSelector(state => state.cart.discount);
-    const viewDiscountedFinal = useSelector(state => state.cart.discountedPrice);
-    const totalCartPrice = useSelector(state => state.cart.totalPrice.toFixed(2));
+    const promoCodeApplied = useSelector(state => state.cart.appliedPromoCode);
+    const viewDiscountedFinal = useSelector(state => Math.abs(state.cart.discountedPrice));
+    const totalCartPrice = useSelector(state => Math.abs(state.cart.totalPrice.toFixed(2)));
     const dispatch = useDispatch();
 
     const handleIncreaseCart = (increaseItemQuantity) => {
@@ -37,9 +37,6 @@ const Cart = () => {
     const calculateDiscountedPrice = (totalPrice) => {
         if (userInput !== '') {
             dispatch(discountPercentage({ calculateDiscount: totalPrice }));
-            setDiscountApplied(true)
-        } else {
-            setDiscountApplied(false);
         }
     };
 
@@ -57,7 +54,6 @@ const Cart = () => {
     return (
         <div>
             <Navbar></Navbar>
-            {/* p-20 */}
             <div className="p-14 shopping_cart_background_color">
                 <h1 className="text-3xl md:text-4xl font-bold pb-16 mt-6 font-merriweather">Shopping Cart</h1>
                 {viewCart.map((cartItem, index) => (
@@ -69,7 +65,6 @@ const Cart = () => {
                             <p className="text-base md:text-lg font-extrabold pt-4 font-merriweather">Price: ${cartItem.itemProduct.price} </p>
                             <div className="pt-8 flex flex-col gap-4">
                                 <button className="lg-shadow text-sm md:text-base remove_cart_button lg:w-60 lg:h-12 font-merriweather" onClick={() => handleRemoveButton(cartItem)}>Remove from Cart</button>
-
 
                                 <div key={index} className="quantity">
                                     <a className="quantity__minus" onClick={() => handleDecreaseCart(cartItem)}><span>-</span></a>
@@ -95,22 +90,12 @@ const Cart = () => {
                     </div>
                     <div className="flex justify-between mt-4">
                         <div id="calculate_discount">Discount:</div>
-                        <div>$ {viewDiscount}</div>
+                        <div>{viewDiscount < 0 ? '-' : '-'} ${Math.abs(viewDiscount)}</div>
                     </div>
                     <div className="border-2 mt-8"></div>
                     <div className="flex justify-between mt-4">
                         <div>Total:</div>
-                        {discountApplied ? (
-                            <div>{viewDiscountedFinal}</div>
-                        ) : (
-                            <div>{totalCartPrice}</div>
-                        )}
-
-                        {/* {viewDiscountedFinal > 0 ? (
-                            <div>{viewDiscountedFinal}</div>
-                        ) : (
-                            <div>{totalCartPrice}</div>
-                        )} */}
+                        {promoCodeApplied ? (<div>${viewDiscountedFinal}</div>) : (<div>${totalCartPrice}</div>)}
 
                     </div>
                 </div>

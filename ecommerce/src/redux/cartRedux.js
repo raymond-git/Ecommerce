@@ -72,14 +72,12 @@ const cartSlice = createSlice({
           state.discountedPrice = parseFloat((state.totalPrice - state.discount).toFixed(2));
         }
       }
-
       localStorage.setItem('products', JSON.stringify(state.products));
       localStorage.setItem('itemQuantity', JSON.stringify(state.itemQuantity));
       localStorage.setItem('totalPrice', JSON.stringify(state.totalPrice));
       localStorage.setItem('discount', JSON.stringify(state.discount));
       localStorage.setItem('discountedPrice', JSON.stringify(state.discountedPrice));
     },
-
 
     removeCartCount: (state, action) => {
       state.cartCount -= action.payload.cartCount;
@@ -136,7 +134,7 @@ const cartSlice = createSlice({
         state.discount = parseFloat((state.totalPrice * 0.20).toFixed(2));
         state.discountedPrice = parseFloat((state.totalPrice - state.discount).toFixed(2));
       }
-      localStorage.setItem("totalPrice", JSON.stringify((state.totalPrice)));
+      localStorage.setItem("totalPrice", JSON.stringify(state.totalPrice));
       localStorage.setItem("discount", JSON.stringify(state.discount));
       localStorage.setItem("discountedPrice", JSON.stringify(state.discountedPrice));
     },
