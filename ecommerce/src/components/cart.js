@@ -1,15 +1,16 @@
 import Navbar from "../components/navbar"
 import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react";
-import { totalPriceIncrementing, totalPriceDecrementing, increaseProductQuantity, decreaseProductQuantity, removeProduct, removeCartCount } from "../redux/cartRedux";
+import { totalPriceIncrementing, totalPriceDecrementing, increaseProductQuantity, decreaseProductQuantity, removeProduct, removeCartCount, discountPercentage, discountedPrice, applyPromoCode } from "../redux/cartRedux";
 
 const Cart = () => {
 
-    const [userInput, setUserInput] = useState(null);
-    const [discounted, setDiscounted] = useState(0);
-    const [finalPrice, setFinalPrice] = useState(0);
+    const [userInput, setUserInput] = useState('');
+    const [discountApplied, setDiscountApplied] = useState(false);
 
     const viewCart = useSelector(state => state.cart.products);
+    const viewDiscount = useSelector(state => state.cart.discount);
+    const viewDiscountedFinal = useSelector(state => state.cart.discountedPrice);
     const totalCartPrice = useSelector(state => state.cart.totalPrice.toFixed(2));
     const dispatch = useDispatch();
 
@@ -20,7 +21,7 @@ const Cart = () => {
 
     const handleDecreaseCart = (decreaseItemQuantity) => {
         dispatch(decreaseProductQuantity({ id: decreaseItemQuantity.itemProduct.id, itemQuantity: 1 }));
-        dispatch(totalPriceDecrementing({ id: decreaseItemQuantity.itemProduct.id, itemPrice: decreaseItemQuantity.itemProduct.price, itemQuantity: 1, cartCount: 1 }))
+        dispatch(totalPriceDecrementing({ id: decreaseItemQuantity.itemProduct.id, itemPrice: decreaseItemQuantity.itemProduct.price, itemQuantity: 1, cartCount: 1 }));
     }
 
     const handleRemoveButton = (deleteProduct) => {
@@ -30,24 +31,22 @@ const Cart = () => {
 
     const userPromoCode = (event) => {
         setUserInput(event.target.value);
-        console.log(userInput);
+        dispatch(applyPromoCode({ userinput: userInput }))
     }
 
     const calculateDiscountedPrice = (totalPrice) => {
-        if (userInput !== null) {
-            const originalPrice = totalPrice;
-            const discountPercentage = 0.20;
-            const discountAmount = originalPrice * discountPercentage;
-            setDiscounted(discountAmount.toFixed(2));
+        if (userInput !== '') {
+            dispatch(discountPercentage({ calculateDiscount: totalPrice }));
+            setDiscountApplied(true)
+        } else {
+            setDiscountApplied(false);
         }
     };
 
     const handleDiscountAndFinalPrice = (totalPrice) => {
-        const originalPrice = totalPrice;
-        const discountPercentage = 0.20;
-        const discountAmount = originalPrice * discountPercentage;
-        const discountedPrice = originalPrice - discountAmount;
-        setFinalPrice(discountedPrice.toFixed(2));
+        if (userInput !== '') {
+            dispatch(discountedPrice({ finalDiscountedPrice: totalPrice }));
+        }
     }
 
     const handleDiscountandTotal = (totalPrice) => {
@@ -85,7 +84,7 @@ const Cart = () => {
 
                 <div className="promocode_border_color rounded-xl lg-shadow w-full h-full p-10 mb-8">
                     <div className="flex justify-center">
-                        <input type="text" value={userInput} onChange={userPromoCode} className="promocode_placeholder text-sm font-merriweather" placeholder=" Promocode" />
+                        <input type="text" value={userInput} onChange={userPromoCode} className="promocode_placeholder text-sm font-merriweather" placeholder="type anything promocode" />
                         <button onClick={() => handleDiscountandTotal(totalCartPrice)} className="bg-black text-white text-xs font-merriweather px-8">Apply</button>
                     </div>
                     <p className="text-xs mt-2 text-gray-400">20% off discount</p>
@@ -96,12 +95,17 @@ const Cart = () => {
                     </div>
                     <div className="flex justify-between mt-4">
                         <div id="calculate_discount">Discount:</div>
-                        <div>$ -{discounted}</div>
+                        <div>$ {viewDiscount}</div>
                     </div>
                     <div className="border-2 mt-8"></div>
                     <div className="flex justify-between mt-4">
                         <div>Total:</div>
-                        <div>$ {finalPrice}</div>
+                        {discountApplied ? (
+                            <div>{viewDiscountedFinal}</div>
+                        ) : (
+                            <div>{totalCartPrice}</div>
+                        )}
+
                     </div>
                 </div>
             </div>
