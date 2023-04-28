@@ -91,7 +91,7 @@ const Cart = () => {
                     <div className="border-2 mt-8"></div>
                     <div className="flex justify-between mt-8">
                         <div>Subtotal:</div>
-                        <div>{totalCartPrice}</div>
+                        <div>$ {totalCartPrice}</div>
                     </div>
                     <div className="flex justify-between mt-4">
                         <div id="calculate_discount">Discount:</div>
@@ -105,6 +105,12 @@ const Cart = () => {
                         ) : (
                             <div>{totalCartPrice}</div>
                         )}
+
+                        {/* {viewDiscountedFinal > 0 ? (
+                            <div>{viewDiscountedFinal}</div>
+                        ) : (
+                            <div>{totalCartPrice}</div>
+                        )} */}
 
                     </div>
                 </div>

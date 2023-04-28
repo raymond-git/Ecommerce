@@ -28,7 +28,6 @@ const cartSlice = createSlice({
       localStorage.setItem("cartCount", JSON.stringify(state.cartCount));
     },
 
-    
     increaseProductQuantity: (state, action) => {
       const productToUpdate = state.products.find(product => product.itemProduct.id === action.payload.id);
       if (productToUpdate) {
@@ -60,19 +59,27 @@ const cartSlice = createSlice({
         state.totalPrice = state.products.reduce((total, product) => {
           return total + (product.itemProduct.price * product.itemQuantity);
         }, 0); // Recalculate totalPrice based on remaining products
+
+        if (state.products.length === 0) {
+          // Reset promo code and related state variables if there are no products in the cart
+          state.appliedPromoCode = null;
+          state.discount = 0;
+          state.discountedPrice = 0;
+          localStorage.removeItem('appliedPromoCode');
+        } else if (state.appliedPromoCode) {
+          // Recalculate discount and discountedPrice based on new total price
+          state.discount = parseFloat((state.totalPrice * 0.2).toFixed(2));
+          state.discountedPrice = parseFloat((state.totalPrice - state.discount).toFixed(2));
+        }
       }
 
-      if(state.appliedPromoCode){
-        state.discount = parseFloat((state.totalPrice * 0.2).toFixed(2)); // Recalculate discount based on new total price
-        state.discountedPrice = parseFloat((state.totalPrice - state.discount).toFixed(2)); // Recalculate discounted price based on new total price and discount
-      }
-     
       localStorage.setItem('products', JSON.stringify(state.products));
       localStorage.setItem('itemQuantity', JSON.stringify(state.itemQuantity));
       localStorage.setItem('totalPrice', JSON.stringify(state.totalPrice));
-      localStorage.setItem("discount", JSON.stringify(state.discount));
-      localStorage.setItem("discountedPrice", JSON.stringify(state.discountedPrice));
+      localStorage.setItem('discount', JSON.stringify(state.discount));
+      localStorage.setItem('discountedPrice', JSON.stringify(state.discountedPrice));
     },
+
 
     removeCartCount: (state, action) => {
       state.cartCount -= action.payload.cartCount;
@@ -91,13 +98,13 @@ const cartSlice = createSlice({
       state.itemQuantity = 0;
     },
 
-/**
- * Updates the total price and discount when a product is added to the cart.
- 1 If the product already exists in the cart, the price is updated based on the itemQuantity.
- 2 If it's a new product, the price is updated based on the cartCount.
- 3 The discount is calculated based on the new totalPrice.
- 4 The discountedPrice is calculated based on the new totalPrice and discount.
- */
+    /**
+     * Updates the total price and discount when a product is added to the cart.
+     1 If the product already exists in the cart, the price is updated based on the itemQuantity.
+     2 If it's a new product, the price is updated based on the cartCount.
+     3 The discount is calculated based on the new totalPrice.
+     4 The discountedPrice is calculated based on the new totalPrice and discount.
+     */
     totalPriceIncrementing: (state, action) => {
       const productToUpdate = state.products.find(product => product.itemProduct.id === action.payload.id);
       if (productToUpdate) { //1
@@ -135,7 +142,7 @@ const cartSlice = createSlice({
     },
 
     applyPromoCode: (state, action) => {
-      state.appliedPromoCode = action.payload.userinput
+      state.appliedPromoCode = action.payload.userinput;
       localStorage.setItem("appliedPromoCode", JSON.stringify(state.appliedPromoCode));
     },
 
@@ -153,7 +160,7 @@ const cartSlice = createSlice({
       const discountAmount = originalPrice * discountPercentage;
       state.discountedPrice = parseFloat((originalPrice - discountAmount).toFixed(2));
       localStorage.setItem("discountedPrice", JSON.stringify(state.discountedPrice));
-      localStorage.setItem("totalPrice", JSON.stringify((state.totalPrice)));
+      localStorage.setItem("totalPrice", JSON.stringify(state.totalPrice));
     },
 
     buttonChanges: (state, action) => {
