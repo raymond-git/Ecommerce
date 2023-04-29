@@ -62,28 +62,23 @@ const Cart = () => {
                             <img className="w-44 h-44 mx-auto" src={cartItem.itemProduct.image}></img>
                             <h1 className="text-lg md:text-xl font-bold mt-10 font-merriweather ">{cartItem.itemProduct.title} </h1>
                             <p className="text-sm md:text-lg leading-6 pt-4 ">{cartItem.itemProduct.description} </p>
-                            <p className="text-base md:text-lg font-extrabold pt-4 font-merriweather">Price: ${cartItem.itemProduct.price} </p>
-                            <div className="pt-8 flex flex-col gap-4">
-                                <button className="lg-shadow text-sm md:text-base remove_cart_button h-10 lg:w-60 lg:h-12 font-merriweather" onClick={() => handleRemoveButton(cartItem)}>Remove from Cart</button>
 
-                                {/* <div key={index} className="quantity">
-                                    <a className="quantity__minus" onClick={() => handleDecreaseCart(cartItem)}><span>-</span></a>
-                                    <input name="quantity" type="text" className="quantity__input" value={cartItem.itemQuantity} />
-                                    <a className="quantity__plus" onClick={() => handleIncreaseCart(cartItem)}><span>+</span></a>
-                                </div> */}
-
-                                <div key={index} class="quantity-count mt-2 md:w-50 lg:w-60">
+                            <div className="flex justify-start mt-4">
+                                <p className="text-base md:text-lg font-extrabold font-merriweather">Price: ${cartItem.itemProduct.price} </p>
+                                <div key={index} class="quantity-count md:w-20 lg:w-20 lg:h-6 ml-4">
                                     <button onClick={() => handleDecreaseCart(cartItem)} class="decrement-btn">-</button>
                                     <input type="text" class="quantity-input" value={cartItem.itemQuantity} />
                                     <button onClick={() => handleIncreaseCart(cartItem)} class="increment-btn">+</button>
                                 </div>
                             </div>
+                            <div className="pt-8 flex flex-col gap-4">
+                                <button className="lg-shadow text-sm md:text-base remove_cart_button h-10 lg:w-60 lg:h-12 font-merriweather" onClick={() => handleRemoveButton(cartItem)}>Remove from Cart</button>
+                            </div>
                         </div>
                     </div>
                 ))}
-
                 <div className="promocode_border_color rounded-xl lg-shadow w-full h-full p-10 mb-8">
-                    <div className="flex justify-center">
+                    <div className="flex justify-start">
                         <input type="text" value={userInput} onChange={userPromoCode} className="promocode_placeholder text-sm font-merriweather" placeholder=" Promocode type any" />
                         <button onClick={() => handleDiscountandTotal(totalCartPrice)} className="bg-black text-white text-xs font-merriweather px-8">Apply</button>
                     </div>
@@ -102,9 +97,8 @@ const Cart = () => {
                         <div className="text-base font-bold font-merriweather text-gray-700">Total:</div>
                         <span className="text-base font-bold text-gray-700">{promoCodeApplied ? (<div>${viewDiscountedFinal}</div>) : (<div>${totalCartPrice}</div>)}</span>
                     </div>
-                    <div className="pt-8 flex flex-col gap-4">
-                        <button className="lg-shadow text-sm md:text-base payment_button h-10 lg:w-60 lg:h-12 font-merriweather" onClick={() => handleRemoveButton()}>Complete Payment</button>
-
+                    <div className="pt-8 flex flex-col gap-4 justify-end md:flex-col md:justify-end lg:flex-row lg:justify-end">
+                        <button className="lg-shadow text-sm md:text-base payment_button h-10 lg:w-60 lg:h-12 font-merriweather">Complete Payment</button>
                     </div>
                 </div>
             </div>
