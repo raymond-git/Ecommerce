@@ -115,6 +115,9 @@ const cartSlice = createSlice({
       if (state.appliedPromoCode) {
         state.discount = parseFloat((state.totalPrice * 0.20).toFixed(2));
         state.discountedPrice = parseFloat((state.totalPrice - state.discount).toFixed(2));
+      } else {
+        state.discount = 0;
+        state.discountedPrice = state.totalPrice;
       }
       localStorage.setItem("totalPrice", JSON.stringify(state.totalPrice));
       localStorage.setItem("discount", JSON.stringify(state.discount));
@@ -133,6 +136,9 @@ const cartSlice = createSlice({
       if (state.appliedPromoCode) {
         state.discount = parseFloat((state.totalPrice * 0.20).toFixed(2));
         state.discountedPrice = parseFloat((state.totalPrice - state.discount).toFixed(2));
+      } else {
+        state.discount = 0;
+        state.discountedPrice = state.totalPrice;
       }
       localStorage.setItem("totalPrice", JSON.stringify(state.totalPrice));
       localStorage.setItem("discount", JSON.stringify(state.discount));

@@ -30,7 +30,7 @@ code {
   background-color: #F0F8FF;
 }
 
-.shopping_cart_border_color{
+.shopping_cart_border_color {
   background-color: white;
 }
 
@@ -47,15 +47,25 @@ code {
   font-weight: bold;
   color: white;
   border-style: solid;
+}
+
+.payment_button {
+  background-color: #1597DD;
+  color: white;
+  font-weight: bold;
+  border-style: solid;
   padding: 0.75rem;
 }
 
 .promocode_placeholder {
   background-color: white;
-  
- 
   padding: 0.25rem;
-  border: solid 1px black;
+  border: solid 1px rgb(229 231 235);
+  border-radius: 4px 0px 0px 4px;
+}
+
+.promocode_placeholder::placeholder {
+  font-size: 12px;
 }
 
 .promocode_border_color {
@@ -65,6 +75,96 @@ code {
 .price_color {
   color: #0f1111
 }
+
+.quantity-count {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 40%;
+  max-width: 20rem;
+  height: 1.6rem;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+.quantity-count button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 50%;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.quantity-count button:hover {
+  background-color: #e1e1e1;
+}
+
+.quantity-count .quantity-input {
+  flex: 1;
+  height: 100%;
+  padding: 0 0.5rem;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #fff;
+  width: 4rem;
+  /* adjust the width as needed */
+}
+
+.quantity-count .decrement-btn,
+.quantity-count .increment-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.decrement-btn {
+  border-radius: 40px 0px 0px 40px;
+}
+
+.increment-btn {
+  border-radius: 0px 10px 10px 0px;
+}
+
+.quantity-count .decrement-btn:hover,
+.quantity-count .increment-btn:hover {
+  background-color: #e1e1e1;
+}
+
+.quantity-count .decrement-btn:focus,
+.quantity-count .increment-btn:focus {
+  box-shadow: none;
+  outline: none;
+  transition: box-shadow 0.1s ease;
+}
+
+.quantity-count .decrement-btn:focus-within,
+.quantity-count .increment-btn:focus-within {
+  outline: none;
+  transition: box-shadow 0.1s ease;
+}
+
+
+
+
+
+
+
 
 
 .quantity {
