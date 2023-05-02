@@ -2,7 +2,7 @@ import Navbar from "../components/navbar"
 import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react";
 import { totalPriceIncrementing, totalPriceDecrementing, increaseProductQuantity, decreaseProductQuantity, removeProduct, removeCartCount, discountPercentage, discountedPrice, applyPromoCode } from "../redux/cartRedux";
-import PaymentForm from "../components/paymentForm"
+import Payment from "../components/payment"
 
 const Cart = () => {
 
@@ -79,104 +79,35 @@ const Cart = () => {
                     </div>
                 ))}
 
-                <div className="promocode_border_color rounded-xl lg-shadow w-full h-full p-10 mb-8">
-                    <div className="flex justify-start">
-                        <input type="text" value={userInput} onChange={userPromoCode} className="promocode_placeholder text-sm font-merriweather" placeholder=" Promocode type any" />
-                        <button onClick={() => handleDiscountandTotal(totalCartPrice)} className="bg-black text-white text-xs font-merriweather px-8">Apply</button>
-                    </div>
-                    <p className="text-sm mt-2 text-gray-400 font-merriweather">20% off discount</p>
-                    <div className="border mt-6"></div>
-                    <div className="flex justify-between mt-4">
-                        <div className="text-base font-bold font-merriweather text-gray-700">Subtotal:</div>
-                        <span className="text-base font-bold text-gray-700"><div>$ {totalCartPrice}</div></span>
-                    </div>
-                    <div className="flex justify-between mt-4">
-                        <div className="text-sm text-gray-400 font-merriweather">Discount:</div>
-                        <div className="text-sm text-gray-400">(20%) {viewDiscount < 0 ? '-' : '-'} ${Math.abs(viewDiscount)}</div>
-                    </div>
-                    <div className="border mt-8"></div>
-                    <div className="flex justify-between mt-4">
-                        <div className="text-base font-bold font-merriweather text-gray-700">Total:</div>
-                        <span className="text-base font-bold text-gray-700">{promoCodeApplied ? (<div>${viewDiscountedFinal}</div>) : (<div>${totalCartPrice}</div>)}</span>
-                    </div>
-                    <div className="pt-8 flex flex-col gap-4 justify-end md:flex-col md:justify-end lg:flex-row lg:justify-end">
-                        <button className="lg-shadow text-sm md:text-base payment_button h-10 lg:w-60 lg:h-12 font-merriweather">Complete Payment</button>
-                    </div>
-                </div>
-
-
-
-                <div class="col-lg-5">
-                    <div class="card bg-primary text-white rounded-3">
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-header py-3">
+                            <h5 class="mb-0">Summary</h5>
+                        </div>
+                        <div class="card-body p-4 flex flex-row align-items-center">
+                            <input value={userInput} onChange={userPromoCode} type="text" id="form1" placeholder="Discount code" class="form-control h-10" />
+                            <button onClick={() => handleDiscountandTotal(totalCartPrice)} type="button" class="discount_apply_button btn  h-9" style={{ fontSize: '14px', padding: '0.375rem 1rem' }}>Apply</button>
+                        </div>
                         <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h5 class="mb-0">Card details</h5>
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
-                                    class="img-fluid rounded-3" style={{ width: 45 }} alt="Avatar" />
-                            </div>
-
-                            <p class="small mb-2">Card type</p>
-                            <a href="#!" type="submit" class="text-white"><i
-                                class="fab fa-cc-mastercard fa-2x me-2"></i></a>
-                            <a href="#!" type="submit" class="text-white"><i
-                                class="fab fa-cc-visa fa-2x me-2"></i></a>
-                            <a href="#!" type="submit" class="text-white"><i
-                                class="fab fa-cc-amex fa-2x me-2"></i></a>
-                            <a href="#!" type="submit" class="text-white"><i class="fab fa-cc-paypal fa-2x"></i></a>
-
-                            <form class="mt-4">
-                                <div class="form-outline form-white mb-4">
-                                    <input type="text" id="typeName" class="form-control form-control-lg text-base lg:text-lg" siez="17"
-                                        placeholder="Cardholder's Name" />
-                                    <label class="form-label text-sm lg:text-lg" for="typeName">Cardholder's Name</label>
-                                </div>
-
-                                <div class="form-outline form-white mb-4">
-                                    <input type="text" id="typeText" class="form-control form-control-lg text-base lg:text-lg" siez="17"
-                                        placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" />
-                                    <label class="form-label text-sm lg:text-lg" for="typeText">Card Number</label>
-                                </div>
-
-                                <div class="row mb-4">
-                                    <div class="col-md-6">
-                                        <div class="form-outline form-white">
-                                            <input type="text" id="typeExp" class="form-control form-control-lg text-base lg:text-lg"
-                                                placeholder="MM/YYYY" size="7" minlength="7" maxlength="7" />
-                                            <label class="form-label text-sm lg:text-lg" for="typeExp">Expiration</label>
-                                        </div>
+                            <ul class="list-group list-group-flush">
+                                <li
+                                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                    Subtotal
+                                    <p class="mb-2">$ {totalCartPrice}</p>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                    Discount
+                                    <div className="text-sm text-gray-400">(20%) {viewDiscount < 0 ? '-' : '-'} ${Math.abs(viewDiscount)}</div>
+                                </li>
+                                <li
+                                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                    <div>
+                                        <strong>Total amount</strong>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-outline form-white">
-                                            <input type="password" id="typeText" class="form-control form-control-lg text-base lg:text-lg"
-                                                placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" />
-                                            <label class="form-label text-sm lg:text-lg" for="typeText">Cvv</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <hr class="my-4" />
-                            <div class="d-flex justify-content-between">
-                                <p class="mb-2">Subtotal</p>
-                                <p class="mb-2">$4798.00</p>
-                            </div>
-
-                            <div class="d-flex justify-content-between">
-                                <p class="mb-2">Shipping</p>
-                                <p class="mb-2">$20.00</p>
-                            </div>
-
-                            <div class="d-flex justify-content-between mb-4">
-                                <p class="mb-2">Total(Incl. taxes)</p>
-                                <p class="mb-2">$4818.00</p>
-                            </div>
-
-                            <button type="button" class="btn btn-info btn-block btn-lg">
-                                <div class="d-flex justify-content-between">
-                                    <span>$4818.00</span>
-                                    <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
-                                </div>
-                            </button>
-
+                                    <span className="text-base font-bold text-gray-700">{promoCodeApplied ? (<div>${viewDiscountedFinal}</div>) : (<div>${totalCartPrice}</div>)}</span>
+                                </li>
+                            </ul>
+                            <Payment />
                         </div>
                     </div>
                 </div>

@@ -49,6 +49,11 @@ code {
   border-style: solid;
 }
 
+.discount_apply_button {
+  color: #4285F4;
+  border: solid 1px #4285F4;
+}
+
 .payment_button {
   background-color: #1597DD;
   color: white;
