@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily: { 
+       'opensans': ['Open Sans', 'sans-serif'],
       burtons: 'burtons',
       merriweather:['Merriweather', 'serif'],
       'sans': ['Helvetica', 'Arial', 'sans-serif'],

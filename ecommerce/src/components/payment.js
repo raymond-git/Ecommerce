@@ -27,12 +27,13 @@ const CheckoutForm = () => {
       })
       .catch(e => {
         console.error(e);
+        
       });
   }
 
   return (
     <div>
-      <button onClick={handleSubmit} class="btn btn-primary btn-lg btn-block">Go to checkout</button>
+      <button onClick={handleSubmit} class="btn btn-primary btn-lg btn-block lg:w-full lg:h-full font-sans">Go to checkout</button>
     </div>
   )
 }

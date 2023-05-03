@@ -9,6 +9,14 @@ const port = process.env.PORT;
 const stripe = require('stripe')(process.env.SECRET_KEY);
 
 app.post('/create-checkout-session', async (req, res) => {
+
+// const customer = await stripe.customers.create({
+//   metadata:{
+//     userId: req.body.userId,
+//     cart: JSON.stringify(req.body.items)
+//   }
+// })
+
   const items = req.body.items;
   const line_items = items.map(item => {
     return {
@@ -16,7 +24,8 @@ app.post('/create-checkout-session', async (req, res) => {
         currency: 'usd',
         product_data: {
           name: item.itemProduct.title,
-          description: item.itemProduct.description
+          images: [item.itemProduct.image]
+          // description: item.itemProduct.description
         },
         unit_amount: item.itemProduct.price * 100,
       },
@@ -29,16 +38,14 @@ app.post('/create-checkout-session', async (req, res) => {
     }
   });
   const session = await stripe.checkout.sessions.create({
+    // customer: customer.id,
     line_items,
     mode: 'payment',
     allow_promotion_codes: true,
-    success_url: process.env.SUCCESS_DOMAIN,
-    cancel_url: process.env.CANCEL_DOMAIN,
+    success_url: process.env.STRIPE_PAYMENT_CHECKOUT_SUCCESS,
+    cancel_url: process.env.BACK_TO_CART,
   });
-
   res.json({ url: session.url });
-
 });
-
 
 app.listen(port, () => console.log(`Node server listening on port ${process.env.PORT}!`));
