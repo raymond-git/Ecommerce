@@ -7,7 +7,6 @@ import { addProduct, addCartCount, buttonChanges, totalPriceIncrementing } from 
 const EcommerceHome = () => {
     const [allProducts, setAllProducts] = useState([]);
     const dispatch = useDispatch();
-
     const isClicked = useSelector(state => state.cart.buttonChanges);
 
     useEffect(() => {

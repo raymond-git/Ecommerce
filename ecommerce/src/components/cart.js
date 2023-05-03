@@ -2,16 +2,12 @@ import Navbar from "../components/navbar"
 import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react";
 import { totalPriceIncrementing, totalPriceDecrementing, increaseProductQuantity, decreaseProductQuantity, removeProduct, removeCartCount, discountPercentage, discountedPrice, applyPromoCode } from "../redux/cartRedux";
-import Payment from "../components/payment"
+import Payment from "./stripeCheckout"
 
 const Cart = () => {
 
-    const [userInput, setUserInput] = useState('');
     const cartCount = useSelector(state => state.cart.cartCount);
     const viewCart = useSelector(state => state.cart.products);
-    const viewDiscount = useSelector(state => state.cart.discount);
-    const promoCodeApplied = useSelector(state => state.cart.appliedPromoCode);
-    const viewDiscountedFinal = useSelector(state => Math.abs(state.cart.discountedPrice));
     const totalCartPrice = useSelector(state => Math.abs(state.cart.totalPrice.toFixed(2)));
     const dispatch = useDispatch();
 
@@ -30,28 +26,6 @@ const Cart = () => {
         dispatch(removeCartCount({ cartCount: 1 }));
     }
 
-    // const userPromoCode = (event) => {
-    //     setUserInput(event.target.value);
-    //     dispatch(applyPromoCode({ userinput: userInput }))
-    // }
-
-    // const calculateDiscountedPrice = (totalPrice) => {
-    //     if (userInput !== '') {
-    //         dispatch(discountPercentage({ calculateDiscount: totalPrice }));
-    //     }
-    // };
-
-    // const handleDiscountAndFinalPrice = (totalPrice) => {
-    //     if (userInput !== '') {
-    //         dispatch(discountedPrice({ finalDiscountedPrice: totalPrice }));
-    //     }
-    // }
-
-    // const handleDiscountandTotal = (totalPrice) => {
-    //     calculateDiscountedPrice(totalPrice)
-    //     handleDiscountAndFinalPrice(totalPrice);
-    // }
-
     return (
         <div>
             <Navbar></Navbar>
@@ -62,22 +36,40 @@ const Cart = () => {
                     <div>
                         {viewCart.map((cartItem, index) => (
                             <div key={index}>
-                                <div className="shopping_cart_border_color rounded-xl lg-shadow w-full h-full p-10 mb-8">
-                                    <img className="w-44 h-44 mx-auto" src={cartItem.itemProduct.image}></img>
-                                    <h1 className="text-lg md:text-xl font-bold mt-10 font-sans ">{cartItem.itemProduct.title} </h1>
-                                    <p className="text-sm md:text-lg leading-6 pt-4 font-sans">{cartItem.itemProduct.description} </p>
+                                <div className="shopping_cart_border_color rounded-xl lg-shadow p-10 mb-8 lg:p-0">
+                                    <div className="lg:flex justify-between lg:mr-20">
+                                        <div className="lg:w-1/3 lg:flex justify-center items-center">
+                                            <img className="w-32 h-32 lg:w-36 lg:h-36 mx-auto" src={cartItem.itemProduct.image}></img>
+                                        </div>
 
-                                    <div className="flex justify-start mt-4">
-                                        <p className="text-base md:text-lg font-extrabold font-sans">Price: ${cartItem.itemProduct.price} </p>
-                                        <div key={index} class="quantity-count md:w-20 lg:w-20 lg:h-6 ml-4">
-                                            <button onClick={() => handleDecreaseCart(cartItem)} class="decrement-btn">-</button>
-                                            <input type="text" class="quantity-input" value={cartItem.itemQuantity} />
-                                            <button onClick={() => handleIncreaseCart(cartItem)} class="increment-btn">+</button>
+                                        <div className="lg:flex-1 lg:ml-6 lg:mb-10">
+                                            <h1 className="text-lg md:text-xl font-bold mt-10 font-sans">{cartItem.itemProduct.title} </h1>
+                                            <p className="text-sm md:text-lg leading-6 pt-4 font-sans">{cartItem.itemProduct.description} </p>
+
+                                            <div className="flex justify-start mt-4">
+                                                <p className="text-base md:text-lg font-extrabold font-sans">Price: ${cartItem.itemProduct.price} </p>
+                                                <div key={index} class="quantity-count md:w-20 lg:w-20 lg:h-6 ml-4">
+                                                    <button onClick={() => handleDecreaseCart(cartItem)} class="decrement-btn">-</button>
+                                                    <input type="text" class="quantity-input" value={cartItem.itemQuantity} />
+                                                    <button onClick={() => handleIncreaseCart(cartItem)} class="increment-btn">+</button>
+                                                </div>
+                                            </div>
+                                            <div className="pt-8 flex flex-col gap-4">
+                                                <div class="icon-container">
+                                                    <button onClick={() => handleRemoveButton(cartItem)} class="delete-button p-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                                                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                                                        </svg>
+                                                        Remove
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="pt-8 flex flex-col gap-4">
-                                        <button className="lg-shadow text-sm md:text-base remove_cart_button h-10 lg:w-60 lg:h-12 font-sans" onClick={() => handleRemoveButton(cartItem)}>Remove from Cart</button>
-                                    </div>
+
+
+
                                 </div>
                             </div>
                         ))}
@@ -90,8 +82,6 @@ const Cart = () => {
                             </div>
                             <div class="card-body p-4 flex flex-row align-items-center">
                                 <h5 className="text-sm font-sans">Don't miss out on savings! Enter promo code "PROMOTION1" for 20% off at checkout</h5>
-                                {/* <input value={userInput} onChange={userPromoCode} type="text" id="form1" placeholder="Discount code" class="form-control h-10" />
-                                <button onClick={() => handleDiscountandTotal(totalCartPrice)} type="button" class="discount_apply_button btn  h-9" style={{ fontSize: '14px', padding: '0.375rem 1rem' }}>Apply</button> */}
                             </div>
                             <div class="card-body">
                                 <ul class="list-group list-group-flush">
@@ -119,11 +109,6 @@ const Cart = () => {
                     </div>
 
                 </div>
-
-
-
-
-
             </div>
         </div>
     )

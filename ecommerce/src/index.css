@@ -16,8 +16,8 @@ code {
     monospace;
 }
 
+/*--------Website background color and border colors--------*/
 .ecommerce_background_color {
-  /* background-color: #F5F5FF; */
   background-color: #F0F8FF;
 }
 
@@ -26,7 +26,6 @@ code {
 }
 
 .shopping_cart_background_color {
-  /* background-color: #F5F5FF; */
   background-color: #F0F8FF;
 }
 
@@ -34,59 +33,41 @@ code {
   background-color: white;
 }
 
+
+
+/*--------All Buttons Customization--------*/
 .add_cart_button {
   background-color: black;
   font-weight: bold;
   color: white;
   border-style: solid;
-  /* padding: 0.75rem; */
   padding: 0.55rem;
 }
 
-.remove_cart_button {
-  background-color: #C70000;
-  font-weight: bold;
-  color: white;
-  border-style: solid;
-}
-
-.discount_apply_button {
-  color: #4285F4;
-  border: solid 1px #4285F4;
-}
-
-.payment_button {
-  background-color: #1597DD;
-  color: white;
-  font-weight: bold;
-  border-style: solid;
-  padding: 0.75rem;
-}
-
-.promocode_placeholder {
+.delete-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   background-color: white;
-  padding: 0.25rem;
-  border: solid 1px rgb(229 231 235);
-  border-radius: 4px 0px 0px 4px;
+  color: #DC3545;
+  border: solid 1px #DC3545;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
 }
 
-.promocode_placeholder::placeholder {
-  font-size: 12px;
+.delete-button:hover {
+  background-color: #DC3545;
+  color: white;
 }
 
-.promocode_border_color {
-  background-color: white;
-}
 
-.price_color {
-  color: #0f1111
-}
 
+/*--------Increment/Decrements customization--------*/
 .quantity-count {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  /* width: 40%; */
   width: 28%;
   height: 1.2rem;
   border: 1px solid #ccc;
@@ -125,7 +106,6 @@ code {
   background-color: #fff;
   width: 1.5rem;
   margin-bottom: 1px;
-  /* adjust the width as needed */
 }
 
 .quantity-count .decrement-btn,
@@ -147,7 +127,8 @@ code {
 }
 
 .increment-btn {
-  border-radius: 0px 10px 10px 0px;;
+  border-radius: 0px 10px 10px 0px;
+  ;
 }
 
 .quantity-count .decrement-btn:hover,
@@ -173,3 +154,4 @@ code {
     width: 27%;
   }
 }
+

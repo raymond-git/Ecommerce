@@ -59,24 +59,10 @@ const cartSlice = createSlice({
         state.totalPrice = state.products.reduce((total, product) => {
           return total + (product.itemProduct.price * product.itemQuantity);
         }, 0); // Recalculate totalPrice based on remaining products
-
-        if (state.products.length === 0) {
-          // Reset promo code and related state variables if there are no products in the cart
-          state.appliedPromoCode = null;
-          state.discount = 0;
-          state.discountedPrice = 0;
-          localStorage.removeItem('appliedPromoCode');
-        } else if (state.appliedPromoCode) {
-          // Recalculate discount and discountedPrice based on new total price
-          state.discount = parseFloat((state.totalPrice * 0.2).toFixed(2));
-          state.discountedPrice = parseFloat((state.totalPrice - state.discount).toFixed(2));
-        }
       }
       localStorage.setItem('products', JSON.stringify(state.products));
       localStorage.setItem('itemQuantity', JSON.stringify(state.itemQuantity));
       localStorage.setItem('totalPrice', JSON.stringify(state.totalPrice));
-      localStorage.setItem('discount', JSON.stringify(state.discount));
-      localStorage.setItem('discountedPrice', JSON.stringify(state.discountedPrice));
     },
 
     removeCartCount: (state, action) => {
@@ -112,16 +98,8 @@ const cartSlice = createSlice({
       } else {
         state.totalPrice += action.payload.itemPrice * action.payload.cartCount; //2
       }
-      if (state.appliedPromoCode) {
-        state.discount = parseFloat((state.totalPrice * 0.20).toFixed(2));
-        state.discountedPrice = parseFloat((state.totalPrice - state.discount).toFixed(2));
-      } else {
-        state.discount = 0;
-        state.discountedPrice = state.totalPrice;
-      }
+
       localStorage.setItem("totalPrice", JSON.stringify(state.totalPrice));
-      localStorage.setItem("discount", JSON.stringify(state.discount));
-      localStorage.setItem("discountedPrice", JSON.stringify(state.discountedPrice));
     },
 
     totalPriceDecrementing: (state, action) => {
@@ -133,40 +111,8 @@ const cartSlice = createSlice({
       } else {
         state.totalPrice -= action.payload.itemPrice * action.payload.cartCount;
       }
-      if (state.appliedPromoCode) {
-        state.discount = parseFloat((state.totalPrice * 0.20).toFixed(2));
-        state.discountedPrice = parseFloat((state.totalPrice - state.discount).toFixed(2));
-      } else {
-        state.discount = 0;
-        state.discountedPrice = state.totalPrice;
-      }
-      localStorage.setItem("totalPrice", JSON.stringify(state.totalPrice));
-      localStorage.setItem("discount", JSON.stringify(state.discount));
-      localStorage.setItem("discountedPrice", JSON.stringify(state.discountedPrice));
-    },
-
-    applyPromoCode: (state, action) => {
-      state.appliedPromoCode = action.payload.userinput;
-      localStorage.setItem("appliedPromoCode", JSON.stringify(state.appliedPromoCode));
-    },
-
-    // Calculates and get discount value only
-    discountPercentage: (state, action) => {
-      state.discount = parseFloat((action.payload.calculateDiscount * 0.20).toFixed(2));
-      localStorage.setItem("discount", JSON.stringify(state.discount));
-    },
-
-    // Calculates the final total price after applying the discount promocode
-    discountedPrice: (state, action) => {
-      console.log(action.payload.finalDiscountedPrice);
-      const originalPrice = action.payload.finalDiscountedPrice;
-      const discountPercentage = 0.20;
-      const discountAmount = originalPrice * discountPercentage;
-      state.discountedPrice = parseFloat((originalPrice - discountAmount).toFixed(2));
-      localStorage.setItem("discountedPrice", JSON.stringify(state.discountedPrice));
       localStorage.setItem("totalPrice", JSON.stringify(state.totalPrice));
     },
-
     buttonChanges: (state, action) => {
       state.buttonChanges[action.payload.changeColor] = true;
     },
