@@ -40,7 +40,9 @@ app.post('/create-checkout-session', async (req, res) => {
     // customer: customer.id,
     line_items,
     mode: 'payment',
+    invoice_creation: { enabled: true },
     allow_promotion_codes: true,
+    payment_method_types: ["card"],
     success_url: process.env.STRIPE_PAYMENT_CHECKOUT_SUCCESS,
     cancel_url: process.env.BACK_TO_CART,
   });

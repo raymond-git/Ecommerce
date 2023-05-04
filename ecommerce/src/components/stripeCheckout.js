@@ -9,7 +9,7 @@ const CheckoutForm = () => {
     fetch("/create-checkout-session", {
       method: "POST",
       body: JSON.stringify({
-        items: viewCart, 
+        items: viewCart,
       }),
       headers: { "Content-Type": "application/json" }
     })
@@ -20,7 +20,7 @@ const CheckoutForm = () => {
 
   return (
     <div>
-      <button onClick={handleCheckout} class="btn btn-primary btn-lg btn-block font-sans h-10 flex items-center justify-center lg:h-14 lg:btn-lg">Go to checkout</button>
+      <button onClick={handleCheckout} className="btn btn-primary btn-lg btn-block font-sans h-10 flex items-center justify-center lg:h-14 lg:btn-lg">Go to checkout</button>
     </div>
   )
 }

@@ -10,7 +10,6 @@ import store from './redux/store';
 import Success from "./components/success"
 import Fail from "./components/fail"
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
