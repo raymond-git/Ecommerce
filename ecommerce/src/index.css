@@ -17,6 +17,17 @@ code {
     monospace;
 }
 
+/*--------Family Fonts--------*/
+.playfairFont {
+  font-family: 'Playfair Display', serif;
+}
+
+.robotoFont {
+  font-family: 'Roboto', sans-serif;
+}
+
+
+
 /*--------Website background color and border colors--------*/
 .ecommerce_background_color {
   background-color: #F0F8FF;
@@ -32,21 +43,25 @@ code {
 
 
 
+
 /*--------All Buttons Customization--------*/
 .add_cart_button {
-  background-color: black;
+  background-color: white;
   font-weight: bold;
-  color: white;
-  border-style: solid;
+  color: black;
+  border: solid 1px;
   padding: 0.55rem;
+}
+
+.add_cart_button:hover {
+  background-color: black;
+  color: white;
 }
 
 .delete-button {
   display: flex;
   align-items: center;
   gap: 10px;
-  /* background-color: #DC3545;
-  color: white; */
   background-color: white;
   color: #DC3545;
   border: solid 1px #DC3545;

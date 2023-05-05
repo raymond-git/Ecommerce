@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import Success from "./components/success"
 import Fail from "./components/fail"
+import SelectedProduct from "./components/selectedProduct";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,6 +18,7 @@ root.render(
       <Routes>
         <Route path="/product" element={<Homepage/>}></Route>
         <Route path="/cart" element={<Cart/>}></Route>
+        <Route path="/:id" element={<SelectedProduct/>}></Route>
         <Route path="/success" element={<Success/>}></Route>
         <Route path="/fail" element={<Fail/>}></Route>
       </Routes>
