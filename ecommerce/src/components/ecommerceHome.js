@@ -38,24 +38,24 @@ const EcommerceHome = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-16">
                 {allProducts.map((product, index) => (
                     <div key={index}>
-                        
-                            <div className="ecommerce_border_color flex flex-col justify-between rounded-xl lg-shadow w-full h-full p-12">
+
+                        <div className="ecommerce_border_color flex flex-col justify-between rounded-xl lg-shadow w-full h-full p-12">
                             <Link to={`/${product.id}`}>
                                 <img className="w-28 h-28 lg:w-32 lg:h-32 mx-auto" src={product.image}></img>
                                 <h1 className="text-base md:text-lg mt-10 playfairFont">{product.title} </h1>
                                 <p className="text-base md:text-lg font-bold pt-4 price_color robotoFont">Price: ${product.price}</p>
                             </Link>
-                                <div className="flex flex-col justify-center pt-8">
-                                    <button
-                                        className="add_cart_button lg-shadow text-sm md:text-base playfairFont"
-                                        style={{ backgroundColor: isClicked[product.id] ? "black" : "", color: isClicked[product.id] ? "white" : "" }}
-                                        onClick={() => handleAddProduct(product, product.id)}
-                                        disabled={isClicked[product.id]}
-                                    >
-                                        {isClicked[product.id] ? "Added to Cart" : "Add to Cart"}
-                                    </button>
-                                </div>
+                            <div className="flex flex-col justify-center pt-8">
+                                <button
+                                    className="add_cart_button lg-shadow text-sm md:text-base playfairFont"
+                                    style={{ backgroundColor: isClicked[product.id] ? "black" : "", color: isClicked[product.id] ? "white" : "" }}
+                                    onClick={() => handleAddProduct(product, product.id)}
+                                    disabled={isClicked[product.id]}
+                                >
+                                    {isClicked[product.id] ? "Added to Cart" : "Add to Cart"}
+                                </button>
                             </div>
+                        </div>
                     </div>
                 ))}
             </div>

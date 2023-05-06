@@ -35,7 +35,7 @@ const Cart = () => {
     }
 
     return (
-        <div>
+        <div className="shopping_cart_background_color">
             <Navbar></Navbar>
             {cartCount === 0 ? <EmptyCart /> :
                 <div className="p-14">

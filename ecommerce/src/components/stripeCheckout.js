@@ -20,7 +20,7 @@ const CheckoutForm = () => {
 
   return (
     <div>
-      <button onClick={handleCheckout} className="btn btn-primary btn-lg btn-block font-sans h-10 flex items-center justify-center lg:h-14 lg:btn-lg">Go to checkout</button>
+      <button onClick={handleCheckout} className="btn btn-primary btn-lg btn-block font-sans h-10 flex items-center justify-center lg:h-12 lg:btn-lg">Go to checkout</button>
     </div>
   )
 }

@@ -9,7 +9,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #F0F8FF;
+  /* background-color: #F0F8FF; */
 }
 
 code {
@@ -41,6 +41,17 @@ code {
   background-color: white;
 }
 
+.shopping_cart_background_color {
+  background-color: #F0F8FF;
+}
+
+.selectedProduct_border_color {
+  background-color: white;
+}
+
+.selectedProduct_background_color {
+  background-color: #F0F8FF;
+}
 
 
 
