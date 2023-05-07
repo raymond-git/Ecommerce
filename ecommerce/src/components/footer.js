@@ -23,11 +23,17 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div className='flex justify-end gap-4 mr-4 mt-4 pb-2'>
-                <p className='text-white text-sm lg:text-base'>Home</p>
-                <p className='text-white text-sm lg:text-base'>Contact</p>
-                <p className='text-white text-sm lg:text-base'>Blog</p>
-                <p className='text-white text-sm lg:text-base'>Article</p>
+
+            <div className='flex justify-between'>
+                <p className="photo-credit2 ml-4 mt-7 lg:mt-8 lg:ml-4">
+                    <a href="https://www.freepik.com/free-photo/blonde-woman-holding-shopping-bags_8487944.htm#query=shopping%20for%20white%20background&position=14&from_view=search&track=ais">Image by Racool_studio</a> on Freepik
+                </p>
+                <div className='flex justify-end gap-4 mr-4 mt-4 pb-2'>
+                    <p className='text-white text-sm lg:text-base'>Home</p>
+                    <p className='text-white text-sm lg:text-base'>Contact</p>
+                    <p className='text-white text-sm lg:text-base'>Blog</p>
+                    <p className='text-white text-sm lg:text-base'>Article</p>
+                </div>
             </div>
         </div>
     )

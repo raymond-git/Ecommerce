@@ -3,22 +3,24 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Homepage from "./components/ecommerceHome"
+import Products from "./components/ecommerceHome"
 import Cart from "./components/cart";
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import Success from "./components/success"
 import Fail from "./components/fail"
 import SelectedProduct from "./components/selectedProduct";
+import LandingPage from './components/landingPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path="/product" element={<Homepage/>}></Route>
-        <Route path="/cart" element={<Cart/>}></Route>
+      <Route path="/" element={<LandingPage/>}></Route>
+        <Route path="/product" element={<Products/>}></Route>
         <Route path="/:id" element={<SelectedProduct/>}></Route>
+        <Route path="/cart" element={<Cart/>}></Route>
         <Route path="/success" element={<Success/>}></Route>
         <Route path="/fail" element={<Fail/>}></Route>
       </Routes>

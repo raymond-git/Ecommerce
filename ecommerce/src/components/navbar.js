@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
     const cartCount = useSelector(state => state.cart.cartCount); //We are calling the "cart" from /redux/store.js
     return (
-        // p-16
-        <div className="bg-black flex justify-between py-6 p-14">
+        <div className="bg-black flex justify-between py-4 p-14">
             <Link to={'/product'}>
                 <div className="flex justify-start">
                     <img className="h-8 lg:h-10" src="/logo192.png"></img>

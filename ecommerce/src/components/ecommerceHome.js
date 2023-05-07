@@ -30,9 +30,9 @@ const EcommerceHome = () => {
     return (
         <div className="ecommerce_background_color">
             <Navbar></Navbar>
-            <div className="hidden sm:block" >
+            {/* <div className="hidden sm:block" >
                 <img className="w-full h-full object-fill" src="EcommerceBanner.png" alt="Ecommerce Banner" style={{ maxWidth: "100%" }} />
-            </div>
+            </div> */}
             <h1 className="text-3xl md:text-4xl pl-16 mt-12 font-bold playfairFont">All Products</h1>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-16">

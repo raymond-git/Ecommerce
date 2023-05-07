@@ -4,8 +4,17 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "./navbar";
 import Footer from "./footer";
+import { addProduct, addCartCount, buttonChanges, totalPriceIncrementing } from "../redux/cartRedux"
+import { useDispatch } from "react-redux"
 
 const SelectedProduct = () => {
+    const dispatch = useDispatch();
+
+    const handleAddProduct = (userProduct) => {
+        dispatch(addProduct({ itemProduct: userProduct, itemQuantity: 1 }));
+        dispatch(addCartCount({ cartCount: 1 }));
+        dispatch(totalPriceIncrementing({ itemPrice: userProduct.price, cartCount: 1 }));
+    };
 
     const [allProducts, setAllProducts] = useState([]);
     const { id } = useParams();
@@ -39,7 +48,16 @@ const SelectedProduct = () => {
                                 <p className="text-base md:text-lg lg:text-xl robotoFont font-bold">Price: ${allProducts.price}</p>
                             </div>
                             <div>
-                                <button className="btn btn-primary btn-lg btn-block font-sans h-10 flex items-center justify-center lg:h-12 lg:btn-lg lg:w-56 mt-4">Add to Cart</button>
+                                <button onClick={() => handleAddProduct(allProducts)} className="btn btn-primary btn-lg btn-block font-sans h-10 flex items-center justify-center lg:h-12 lg:btn-lg lg:w-56 mt-4">Add to Cart</button>
+                                {/* 
+                                <button
+                                    className="add_cart_button lg-shadow text-sm md:text-base playfairFont"
+                                    style={{ backgroundColor: isClicked[product.id] ? "black" : "", color: isClicked[product.id] ? "white" : "" }}
+                                    onClick={() => handleAddProduct(product, product.id)}
+                                    disabled={isClicked[product.id]}
+                                >
+                                    {isClicked[product.id] ? "Added to Cart" : "Add to Cart"}
+                                </button> */}
                             </div>
                         </div>
                     </div>
