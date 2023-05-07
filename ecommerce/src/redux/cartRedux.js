@@ -86,8 +86,6 @@ const cartSlice = createSlice({
      * Updates the total price and discount when a product is added to the cart.
      1 If the product already exists in the cart, the price is updated based on the itemQuantity.
      2 If it's a new product, the price is updated based on the cartCount.
-     3 The discount is calculated based on the new totalPrice.
-     4 The discountedPrice is calculated based on the new totalPrice and discount.
      */
     totalPriceIncrementing: (state, action) => {
       const productToUpdate = state.products.find(product => product.itemProduct.id === action.payload.id);

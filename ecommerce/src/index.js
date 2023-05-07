@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Products from "./components/ecommerceHome"
+import Products from "./components/ecommerce"
 import Cart from "./components/cart";
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import Success from "./components/success"
 import Fail from "./components/fail"
-import SelectedProduct from "./components/selectedProduct";
+import ProductDetails from "./components/productDetails";
 import LandingPage from './components/landingPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,8 +18,8 @@ root.render(
     <BrowserRouter>
       <Routes>
       <Route path="/" element={<LandingPage/>}></Route>
-        <Route path="/product" element={<Products/>}></Route>
-        <Route path="/:id" element={<SelectedProduct/>}></Route>
+        <Route path="/products" element={<Products/>}></Route>
+        <Route path="/:id" element={<ProductDetails/>}></Route>
         <Route path="/cart" element={<Cart/>}></Route>
         <Route path="/success" element={<Success/>}></Route>
         <Route path="/fail" element={<Fail/>}></Route>

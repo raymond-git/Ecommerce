@@ -17,6 +17,23 @@ code {
     monospace;
 }
 
+.brightness-filter {
+  filter:brightness(60%);
+  opacity: 0.9
+}
+
+.photo-credit {
+  font-size: 10px;
+  color: black;
+}
+
+.photo-credit2 {
+  font-size: 10px;
+  color: white;
+}
+
+
+
 /*--------Family Fonts--------*/
 .playfairFont {
   font-family: 'Playfair Display', serif;
@@ -53,20 +70,7 @@ code {
   background-color: #F0F8FF;
 }
 
-.brightness-filter {
-  filter:brightness(60%);
-  opacity: 0.9
-}
 
-.photo-credit {
-  font-size: 10px;
-  color: black;
-}
-
-.photo-credit2 {
-  font-size: 10px;
-  color: white;
-}
 
 /*--------All Buttons Customization--------*/
 .add_cart_button {
@@ -97,6 +101,11 @@ code {
 .delete-button:hover {
   background-color: #DC3545;
   color: white;
+}
+
+.hover-product:hover {
+ background-color: white;
+ color: #E5E5E5;
 }
 
 .shopnow-button {

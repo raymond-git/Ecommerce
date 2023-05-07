@@ -6,22 +6,17 @@ const LandingPage = () => {
     return (
         <div className="overflow-x-hidden">
             <Navbar></Navbar>
-          
             <div className="relative">
                 <img className="brightness-filter w-full md:h-96 lg:h-96 object-cover" src="landingPageImage.png"></img>
                 <div className="flex justify-center items-center">
                     <h1 className="text-white text-xl md:text-2xl lg:text-3xl font-extrabold absolute top-1/3 lg:top-1/3">
-                        Your one-stop shop for everything
+                        Find Your Next Favorite Piece Here
                     </h1>
-               
-                    <Link to={"/product"} className="inline-block">
-                        {/* <button className="shopnow-button text-sm md:text-base lg:text-lg absolute top-2/4 px-4 py-1 lg:px-8 lg:py-3">Shop Now</button> */}
+                    <Link to={"/productS"} className="inline-block">
                         <button className="shopnow-button text-sm md:text-base lg:text-lg absolute top-2/4 left-1/2 transform -translate-x-1/2 px-4 py-1 lg:px-8 lg:py-3">Shop Now</button>
-                        </Link>
-                  
+                    </Link>
                 </div>
             </div>
-           
             <div className="mt-8 p-14 lg:p-28 lg:-mt-25 lg:flex flex-row-reverse justify-between items-center gap-x-24">
                 <div className="flex flex-col justify-between items-center">
                     <div className="lg:mr-14">

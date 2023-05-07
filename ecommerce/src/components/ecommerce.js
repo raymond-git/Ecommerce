@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import Navbar from "../components/navbar"
-import Footer from "../components/footer"
+import Navbar from "./navbar"
+import Footer from "./footer"
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { addProduct, addCartCount, buttonChanges, totalPriceIncrementing } from "../redux/cartRedux"
 
-const EcommerceHome = () => {
-    const [allProducts, setAllProducts] = useState([]);
-    const dispatch = useDispatch();
-    const isClicked = useSelector(state => state.cart.buttonChanges);
+const Ecommerce = () => {
 
+    const [allProducts, setAllProducts] = useState([]);
+    const isClicked = useSelector(state => state.cart.buttonChanges);
+    const dispatch = useDispatch();
+
+    // Retrieves all the product data from a fake API. All Products:[ID, Title, Descriptions, Price]
     useEffect(() => {
         axios.get("https://fakestoreapi.com/products")
             .then((response) => {
@@ -20,6 +22,11 @@ const EcommerceHome = () => {
             })
     }, [])
 
+
+    // addProduct: Adds a specific product to the cart page
+    // addCartCount: Increments the number of items in the cart
+    // totalPriceIncrementing: Updates the total price based on the number of items in the cart
+    // buttonChanges: Changes the button appearance to a darker, disabled mode to let the user know that it has already been clicked
     const handleAddProduct = (userProduct, changeBtnColorBasedOnId) => {
         dispatch(addProduct({ itemProduct: userProduct, itemQuantity: 1 }));
         dispatch(addCartCount({ cartCount: 1 }));
@@ -30,20 +37,15 @@ const EcommerceHome = () => {
     return (
         <div className="ecommerce_background_color">
             <Navbar></Navbar>
-            {/* <div className="hidden sm:block" >
-                <img className="w-full h-full object-fill" src="EcommerceBanner.png" alt="Ecommerce Banner" style={{ maxWidth: "100%" }} />
-            </div> */}
-            <h1 className="text-3xl md:text-4xl pl-16 mt-12 font-bold playfairFont">All Products</h1>
-
+            <h1 className="playfairFont font-bold text-3xl md:text-4xl pl-16 mt-12">All Products</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-16">
                 {allProducts.map((product, index) => (
                     <div key={index}>
-
-                        <div className="ecommerce_border_color flex flex-col justify-between rounded-xl lg-shadow w-full h-full p-12">
-                            <Link to={`/${product.id}`}>
+                        <div className="ecommerce_border_color rounded-xl lg-shadow w-full h-full flex flex-col justify-between p-12">
+                            <Link className="hover-product" to={`/${product.id}`}>
                                 <img className="w-28 h-28 lg:w-32 lg:h-32 mx-auto" src={product.image}></img>
-                                <h1 className="text-base md:text-lg mt-10 playfairFont">{product.title} </h1>
-                                <p className="text-base md:text-lg font-bold pt-4 price_color robotoFont">Price: ${product.price}</p>
+                                <h1 className="playfairFont text-base md:text-lg mt-10">{product.title} </h1>
+                                <p className="robotoFont font-bold text-base md:text-lg pt-4 price_color">Price: ${product.price}</p>
                             </Link>
                             <div className="flex flex-col justify-center pt-8">
                                 <button
@@ -59,13 +61,12 @@ const EcommerceHome = () => {
                     </div>
                 ))}
             </div>
-
             <Footer></Footer>
         </div>
     )
 }
 
-export default EcommerceHome;
+export default Ecommerce;
 
 
 

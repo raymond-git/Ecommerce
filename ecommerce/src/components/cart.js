@@ -1,35 +1,42 @@
+import Footer from "./footer"
+import EmptyCart from "./emptyCart"
+import Checkout from "./stripeCheckout"
 import Navbar from "../components/navbar"
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { totalPriceIncrementing, totalPriceDecrementing, increaseProductQuantity, decreaseProductQuantity, removeProduct, removeCartCount } from "../redux/cartRedux";
-import Checkout from "./stripeCheckout"
-import EmptyCart from "./emptyCart"
-import Footer from "./footer"
-import { useState } from "react";
 
 const Cart = () => {
 
     const [countChange, setCountChange] = useState("")
 
+    //  viewCart contains the products that were added to the user's cart from product page
+    //  cartCount tracks the total count of products in the cart, which is incremented or decremented each time a product is added or removed by the user.
+    //  totalCartPrice is responsible for tracking the total cost of all the products that are currently in the shopping cart either through incrementing/decrementing or adding to cart.
     const viewCart = useSelector(state => state.cart.products);
     const cartCount = useSelector(state => state.cart.cartCount);
     const totalCartPrice = useSelector(state => Math.abs(state.cart.totalPrice.toFixed(2)));
     const dispatch = useDispatch();
 
+    // Increase the quantity of the product and update the total price accordingly in shopping cart page
     const handleIncreaseCart = (increaseItemQuantity) => {
-        dispatch(increaseProductQuantity({ id: increaseItemQuantity.itemProduct.id, itemQuantity: 1 })); // Total number of quantity of the specific item
+        dispatch(increaseProductQuantity({ id: increaseItemQuantity.itemProduct.id, itemQuantity: 1 }));
         dispatch(totalPriceIncrementing({ id: increaseItemQuantity.itemProduct.id, itemPrice: increaseItemQuantity.itemProduct.price, itemQuantity: 1, cartCount: 1 }));
     };
 
+    // Reduce the quantity of the product and update the total price accordingly in shopping cart page
     const handleDecreaseCart = (decreaseItemQuantity) => {
         dispatch(decreaseProductQuantity({ id: decreaseItemQuantity.itemProduct.id, itemQuantity: 1 }));
         dispatch(totalPriceDecrementing({ id: decreaseItemQuantity.itemProduct.id, itemPrice: decreaseItemQuantity.itemProduct.price, itemQuantity: 1, cartCount: 1 }));
     }
 
+    // Remove product from cart and cart count should be decremented accordingly in shopping cart page
     const handleRemoveButton = (deleteProduct) => {
         dispatch(removeProduct({ id: deleteProduct.itemProduct.id }));
         dispatch(removeCartCount({ cartCount: 1 }));
     }
 
+    // keeps track of the user input and changes the state accordingly.
     const handleIncrementDecrentChange = (event) => {
         setCountChange(event.target.value);
     }
@@ -50,10 +57,10 @@ const Cart = () => {
                                                 <img className="w-32 h-32 lg:w-36 lg:h-36 mx-auto" src={cartItem.itemProduct.image}></img>
                                             </div>
                                             <div className="lg:flex-1 lg:ml-6 lg:mb-10">
-                                                <h1 className="text-lg md:text-xl font-bold playfairFont mt-10 ">{cartItem.itemProduct.title}</h1>
-                                                <p className="text-sm md:text-base font-sans leading-6 pt-4">{cartItem.itemProduct.description}</p>
+                                                <h1 className="playfairFont font-bold text-base md:text-lg mt-10 ">{cartItem.itemProduct.title}</h1>
+                                                <p className="font-sans text-sm md:text-base leading-6 pt-4">{cartItem.itemProduct.description}</p>
                                                 <div className="flex justify-start mt-4">
-                                                    <p className="text-base md:text-lg robotoFont font-bold">Price: ${cartItem.itemProduct.price}</p>
+                                                    <p className="robotoFont text-base font-bold md:text-lg">Price: ${cartItem.itemProduct.price}</p>
                                                     <div key={index} className="quantity-count md:w-20 lg:w-20 lg:h-6 ml-4">
                                                         <button onClick={() => handleDecreaseCart(cartItem)} className="decrement-btn">-</button>
                                                         <input type="text" className="quantity-input" onChange={handleIncrementDecrentChange} value={cartItem.itemQuantity} />
@@ -62,7 +69,7 @@ const Cart = () => {
                                                 </div>
                                                 <div className="flex flex-col gap-4 pt-8">
                                                     <div className="icon-container">
-                                                        <button onClick={() => handleRemoveButton(cartItem)} className="delete-button robotoFont p-2">
+                                                        <button onClick={() => handleRemoveButton(cartItem)} className="delete-button robotoFont p-2" style={{ outline: 'none' }}>
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                                                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                                                 <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
@@ -101,7 +108,7 @@ const Cart = () => {
                                             <span className="text-base font-bold text-gray-700 font-sans">$ {totalCartPrice}</span>
                                         </li>
                                     </ul>
-                                    <Checkout />
+                                    <Checkout/> {/* This code generates a button that utilizes the Stripe Checkout API for the payment process. */}
                                 </div>
                             </div>
                         </div>

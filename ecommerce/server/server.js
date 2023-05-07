@@ -10,12 +10,12 @@ const stripe = require('stripe')(process.env.SECRET_KEY);
 
 app.post('/create-checkout-session', async (req, res) => {
 
-// const customer = await stripe.customers.create({
-//   metadata:{
-//     userId: req.body.userId,
-//     cart: JSON.stringify(req.body.items)
-//   }
-// })
+  // const customer = await stripe.customers.create({
+  //   metadata:{
+  //     userId: req.body.userId,
+  //     cart: JSON.stringify(req.body.items)
+  //   }
+  // })
 
   const items = req.body.items;
   const line_items = items.map(item => {
