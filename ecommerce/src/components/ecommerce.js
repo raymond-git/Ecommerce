@@ -1,32 +1,49 @@
 import React, { useEffect, useState } from "react"
-import axios from "axios"
-import Navbar from "./navbar"
-import Footer from "./footer"
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { addProduct, addCartCount, buttonChanges, totalPriceIncrementing } from "../redux/cartRedux"
+import { fetchAllProducts } from "./api";
+import Navbar from "./navbar"
+import Footer from "./footer"
 
+/**
+ * Ecommerce.js:
+ * Renders all products on the page and handles adding products to the cart. This file contain the main functionality for the Ecommerce page 
+ * of the application. It fetches all products from the FakeStoreAPI. It also handles adding products to the cart and updating the cart count 
+ * and total price.
+ * 
+ * Sub-components:
+ *  - `Navbar`: renders the navigation bar at the top of the page
+ *  - `Footer`: renders the footer at the bottom of the page
+ * 
+ * Redux managing cart page:
+ *  - `addProduct`: adds a specific product to the cart page
+ *  - `addCartCount`: increments the number of items in the cart
+ *  - `totalPriceIncrementing`: updates the total price based on the number of items in the cart
+ *  - `buttonChanges`: changes the button appearance to a darker, disabled mode to let the user know that it has already been clicked
+ * @author Raymond Huang
+ */
 const Ecommerce = () => {
 
-    const [allProducts, setAllProducts] = useState([]);
     const isClicked = useSelector(state => state.cart.buttonChanges);
-    const dispatch = useDispatch();
 
-    // Retrieves all the product data from a fake API. All Products:[ID, Title, Descriptions, Price]
+    // Set up the `allProducts` state and fetch all products from the fake store API using `fetchAllProducts`
+    const [allProducts, setAllProducts] = useState([]);
+    const dispatch = useDispatch();
     useEffect(() => {
-        axios.get("https://fakestoreapi.com/products")
-            .then((response) => {
-                setAllProducts(response.data)
-            }).catch((error) => {
-                console.log(error)
-            })
+        const getAllProducts = async () => {
+            const products = await fetchAllProducts();
+            console.log(products.data);
+            setAllProducts(products.data);
+        }
+        getAllProducts();
     }, [])
 
-
-    // addProduct: Adds a specific product to the cart page
-    // addCartCount: Increments the number of items in the cart
-    // totalPriceIncrementing: Updates the total price based on the number of items in the cart
-    // buttonChanges: Changes the button appearance to a darker, disabled mode to let the user know that it has already been clicked
+    /**
+      * Handles adding a product to the cart page and updating the cart count and total price.
+      * @param {Object} userProduct - The product to be added to the cart.
+      * @param {number} changeBtnColorBasedOnId - The ID of the product that was clicked, used to change the button appearance.
+      */
     const handleAddProduct = (userProduct, changeBtnColorBasedOnId) => {
         dispatch(addProduct({ itemProduct: userProduct, itemQuantity: 1 }));
         dispatch(addCartCount({ cartCount: 1 }));
@@ -43,9 +60,9 @@ const Ecommerce = () => {
                     <div key={index}>
                         <div className="ecommerce_border_color rounded-xl lg-shadow w-full h-full flex flex-col justify-between p-12">
                             <Link className="hover-product" to={`/${product.id}`}>
-                                <img className="w-28 h-28 lg:w-32 lg:h-32 mx-auto" src={product.image}></img>
+                                <img className="w-28 h-28 lg:w-32 lg:h-32 mx-auto" src={product.image} alt="product"></img>
                                 <h1 className="playfairFont text-base md:text-lg mt-10">{product.title} </h1>
-                                <p className="robotoFont font-bold text-base md:text-lg pt-4 price_color">Price: ${product.price}</p>
+                                <p className="robotoFont font-bold text-base md:text-lg pt-4 price-color">Price: ${product.price}</p>
                             </Link>
                             <div className="flex flex-col justify-center pt-8">
                                 <button

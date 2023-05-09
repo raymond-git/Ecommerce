@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
-import Navbar from "./navbar";
-import Footer from "./footer";
 import { addProduct, addCartCount, buttonChanges, totalPriceIncrementing } from "../redux/cartRedux"
 import { useDispatch } from "react-redux"
+import { fetchSingleProduct } from "./api"
+import Navbar from "./navbar";
+import Footer from "./footer";
 
 const ProductDetails = () => {
 
@@ -23,12 +23,11 @@ const ProductDetails = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        axios.get(`https://fakestoreapi.com/products/${id}`)
-            .then((response) => {
-                setAllProducts(response.data)
-            }).catch((error) => {
-                console.log(error)
-            })
+        const getAllProducts = async () => {
+            const productDetails = await fetchSingleProduct(id);
+            setAllProducts(productDetails.data)
+        }
+        getAllProducts();
     }, [id])
 
     return (
@@ -51,7 +50,7 @@ const ProductDetails = () => {
                             <h1 className="playfairFont font-bold text-lg md:text-xl mt-10 ">{allProducts.title}</h1>
                             <p className="font-sans text-sm md:text-base pt-4">{allProducts.description}</p>
                             <div className="flex justify-start mt-4">
-                                <p className="robotoFont font-bold text-base md:text-lg lg:text-xl">Price: ${allProducts.price}</p>
+                                <p className="robotoFont font-bold text-base md:text-lg lg:text-xl price-color ">Price: ${allProducts.price}</p>
                             </div>
                             <div>
                                 <button

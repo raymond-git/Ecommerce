@@ -1,16 +1,22 @@
+import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux'
 import { BsCart3 } from "react-icons/bs"
-import { Link } from "react-router-dom";
+import { renderToString } from 'react-dom/server';
+import { SiBattledotnet } from "react-icons/si"
 
 const Navbar = () => {
-    
+
+    const dataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(
+        renderToString(<SiBattledotnet fill="#61DAFB" />)
+    )}`;
+
     //We are calling the "cart" from /redux/store.js
-    const cartCount = useSelector(state => state.cart.cartCount); 
+    const cartCount = useSelector(state => state.cart.cartCount);
     return (
         <div className="bg-black flex justify-between py-4 p-14">
             <Link to={'/products'}>
                 <div className="flex justify-start">
-                    <img className="h-8 lg:h-10" src="logo192.png"></img>
+                    <img className="cc h-8 lg:h-10" src={dataUrl}></img>
                     <h1 className="font-sans text-white text-xl lg:text-2xl ml-3 flex items-center">ShopiCart</h1>
                 </div>
             </Link>

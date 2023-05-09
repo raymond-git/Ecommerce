@@ -17,6 +17,10 @@ code {
     monospace;
 }
 
+.price-color {
+  color: rgb(66, 63, 63)
+}
+
 .brightness-filter {
   filter:brightness(60%);
   opacity: 0.9
@@ -105,7 +109,7 @@ code {
 
 .hover-product:hover {
  background-color: white;
- color: #E5E5E5;
+ color: darkgrey;
 }
 
 .shopnow-button {
