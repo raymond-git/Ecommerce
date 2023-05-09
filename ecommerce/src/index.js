@@ -7,8 +7,8 @@ import Products from "./components/ecommerce"
 import Cart from "./components/cart";
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import Success from "./components/success"
-import Fail from "./components/fail"
+import PaymentSuccessful from "./components/paymentSuccessful"
+import PaymentUnsuccessful from "./components/paymentUnsuccessful"
 import ProductDetails from "./components/productDetails";
 import LandingPage from './components/landingPage';
 
@@ -21,8 +21,8 @@ root.render(
         <Route path="/products" element={<Products/>}></Route>
         <Route path="/:id" element={<ProductDetails/>}></Route>
         <Route path="/cart" element={<Cart/>}></Route>
-        <Route path="/success" element={<Success/>}></Route>
-        <Route path="/fail" element={<Fail/>}></Route>
+        <Route path="/payment-success" element={<PaymentSuccessful/>}></Route>
+        <Route path="/payment-error" element={<PaymentUnsuccessful/>}></Route>
       </Routes>
     </BrowserRouter>
   </Provider>

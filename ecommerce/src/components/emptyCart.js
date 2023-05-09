@@ -12,7 +12,7 @@ const EmptyCart = () => {
             <div>
                 <h1 className="font-sans font-bold text-2xl md:text-3xl text-center pb-6 mt-8">Your Cart is Currently Empty!</h1>
             </div>
-            <Link to={`/products`}><button type="button" className="btn btn-primary btn-lg rounded-3xl flex items-center lg:h-14 lg:btn-lg my-8 h-10">Return to Shop</button></Link>
+            <Link to={`/products`}><button type="button" className="btn btn-primary btn-lg rounded-3xl flex items-center lg:h-12 lg:btn-lg my-8 h-10">Return to Shop</button></Link>
         </div>
     );
 }

@@ -13,7 +13,7 @@ const Footer = () => {
             <div className="flex flex-col items-center gap-4 mt-2">
                 <div className='flex justify-center gap-2'>
                     <img className="h-5 mt-1 lg:h-6 lg:mt-1.5" src={dataUrl}></img>
-                    <h1 className="text-white text-xl lg:text-2xl font-bold">ShopiCart</h1>
+                    <h1 className="text-white text-xl lg:text-2xl font-medium">ShopiCart</h1>
                 </div>
                 <div className="w-4/5 lg:w-3/6 lg:text-center">
                     <p className="text-sm lg:text-base text-white">

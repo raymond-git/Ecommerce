@@ -17,15 +17,27 @@ code {
     monospace;
 }
 
+.thankyou-text-color {
+  color: #4285f4
+}
+
+.payment-unsuccessful-text-color {
+  --tw-text-opacity: 1;
+  color: rgb(185 28 28 / var(--tw-text-opacity));
+}
+
 .price-color {
   color: rgb(66, 63, 63)
 }
 
 .brightness-filter {
-  filter:brightness(60%);
+  filter: brightness(60%);
   opacity: 0.9
 }
 
+
+
+/*--------Images Credit--------*/
 .photo-credit {
   font-size: 10px;
   color: black;
@@ -108,8 +120,8 @@ code {
 }
 
 .hover-product:hover {
- background-color: white;
- color: darkgrey;
+  background-color: white;
+  color: darkgrey;
 }
 
 .shopnow-button {
@@ -118,8 +130,9 @@ code {
   color: white;
   padding: 0.55rem;
   border: white 1px solid;
-  
 }
+
+
 
 /*--------Increment/Decrements customization--------*/
 .quantity-count {

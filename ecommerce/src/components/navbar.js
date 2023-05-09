@@ -17,7 +17,7 @@ const Navbar = () => {
             <Link to={'/products'}>
                 <div className="flex justify-start">
                     <img className="cc h-8 lg:h-10" src={dataUrl}></img>
-                    <h1 className="font-sans text-white text-xl lg:text-2xl ml-3 flex items-center">ShopiCart</h1>
+                    <h1 className=" text-white text-xl lg:text-2xl ml-3 flex items-center font-medium">ShopiCart</h1>
                 </div>
             </Link>
             <div className="relative">

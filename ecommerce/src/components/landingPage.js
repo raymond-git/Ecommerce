@@ -1,6 +1,6 @@
 import Navbar from "./navbar";
-import { Link } from "react-router-dom";
 import Footer from "./footer";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
     return (
@@ -12,7 +12,7 @@ const LandingPage = () => {
                     <h1 className="text-white text-xl md:text-2xl lg:text-3xl font-extrabold absolute top-1/3 lg:top-1/3">
                         Find Your Next Favorite Piece Here
                     </h1>
-                    <Link to={"/productS"} className="inline-block">
+                    <Link to={"/products"} className="inline-block">
                         <button className="shopnow-button text-sm md:text-base lg:text-lg absolute top-2/4 left-1/2 transform -translate-x-1/2 px-4 py-1 lg:px-8 lg:py-3">Shop Now</button>
                     </Link>
                 </div>
@@ -41,7 +41,7 @@ const LandingPage = () => {
                     <img className="md:w-full md:h-64 lg:w-full lg:h-96 mr-96 pr-20 md:pr-32 lg:pr-24 object-contain scale-150 transition duration-100 ease-in-out" src="discountImage.png"></img>
                 </div>
                 <div className="flex flex-col w-full mt-24 gap-8">
-                    <p className="font-sans font-bold text-base md:text-lg lg:text-xl">Limited Time Off: 20% Off Your First Purchase</p>
+                    <p className="font-sans font-bold text-base md:text-lg lg:text-xl text-red-700">Limited Time Off: 20% Off Your First Purchase</p>
                     <p className="playfairFont text-sm md:text-base lg:text-lg leading-6">
                         Looking to score a deal on your first purchase? Look no further! We're currently offering
                         20% off for all new customers. Don't miss out on this limited time offer – shop now and save!
