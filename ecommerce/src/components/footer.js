@@ -16,7 +16,7 @@ const Footer = () => {
                     <h1 className="text-white text-xl lg:text-2xl font-medium">ShopiCart</h1>
                 </div>
                 <div className="w-4/5 lg:w-3/6 lg:text-center">
-                    <p className="text-sm lg:text-base text-white">
+                    <p className="text-sm md:text-base lg:text-base text-white">
                         Find everything you need for online shopping with confidence at CloudCart, offering
                         high-quality products, competitive pricing, fast shipping, and dedicated customer service.
                     </p>
@@ -35,10 +35,10 @@ const Footer = () => {
                     <a href="https://www.freepik.com/free-photo/front-view-smiling-young-woman-with-measure-tape-sale-nameplate-white-background-losing-measuring-slimming-shopping-torso-hip-skin-body-waist-mall_21741736.htm#query=sale%20shopping%20white%20background%20color&position=26&from_view=search&track=ais">Image by KamranAydinov</a> on Freepik
                 </p>
                 <div className='flex justify-end gap-4 mr-4 mt-4 pb-2'>
-                    <p className='text-white text-sm lg:text-base'>Home</p>
-                    <p className='text-white text-sm lg:text-base'>Contact</p>
-                    <p className='text-white text-sm lg:text-base'>Blog</p>
-                    <p className='text-white text-sm lg:text-base'>Article</p>
+                    <p className='text-white text-xs md:text-sm lg:text-base'>Home</p>
+                    <p className='text-white text-xs md:text-sm lg:text-base'>Contact</p>
+                    <p className='text-white text-xs md:text-sm lg:text-base'>Blog</p>
+                    <p className='text-white text-xs md:text-sm lg:text-base'>Article</p>
                 </div>
             </div>
         </div>

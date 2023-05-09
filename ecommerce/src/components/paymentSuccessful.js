@@ -16,14 +16,14 @@ const PaymentSuccessful = () => {
             <Navbar></Navbar>
             <div className="mt-20">
                 <div className="flex flex-col items-center gap-20">
-                    <img className="h-40" src={dataUrl}></img>
-                    <h1 className="font-sans font-bold text-5xl thankyou-text-color">Thank You!</h1>
+                    <img className="h-32 md:h-36 lg:h-40" src={dataUrl}></img>
+                    <h1 className="font-sans font-bold lg:font-bold text-xl md:text-2xl lg:text-5xl thankyou-text-color">Thank You!</h1>
                 </div>
                 <div className="mt-4">
-                    <div className="flex flex-col items-center gap-8">
-                        <p className="text-2xl font-medium">Payment done succesfully</p>
-                        <p className="">You will be redirected to the shopping page shortly or click here to return to shopping page</p>
-                        <button className="btn btn-primary btn-lg btn-block font-sans h-10 flex items-center justify-center lg:h-12 lg:btn-lg lg:w-56 mt-4 rounded-3xl">Shopping Page</button>
+                    <div className="flex flex-col items-center lg:gap-8">
+                        <p className="font-medium lg:font-medium text-lg md:text-xl lg:text-2xl">Payment done succesfully</p>
+                        <p className="text-sm md:text-base lg:text-lg p-8 lg:p-0 text-center">You will be redirected to the shopping page shortly or click here to return to shopping page</p>
+                        <button className="btn btn-primary btn-lg btn-block font-sans h-10 flex items-center justify-center w-50 lg:h-12 lg:btn-lg lg:w-56 mt-4 rounded-3xl">Shopping Page</button>
                     </div>
                 </div>
             </div>
