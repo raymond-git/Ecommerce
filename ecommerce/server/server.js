@@ -5,7 +5,7 @@ require('dotenv').config();
 app.use(express.static("public"));
 app.use(express.json());
 
-const port = process.env.PORT;
+const port = process.env.PORT || 8000;
 const stripe = require('stripe')(process.env.SECRET_KEY);
 
 app.post('/create-checkout-session', async (req, res) => {
