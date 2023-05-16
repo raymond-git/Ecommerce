@@ -5,9 +5,9 @@ require('dotenv').config();
 app.use(express.static("public"));
 app.use(express.json());
 
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'index.html'));
-//   });
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  });
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -48,10 +48,6 @@ app.post('/create-checkout-session', async (req, res) => {
     cancel_url: process.env.BACK_TO_CART,
   });
   res.json({ url: session.url });
-});
-
-app.get("/:splat", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 app.listen(port, () => console.log(`Node server listening on port ${process.env.PORT}!`));
