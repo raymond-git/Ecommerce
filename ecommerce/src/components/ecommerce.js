@@ -55,18 +55,18 @@ const Ecommerce = () => {
         <div className="ecommerce_background_color">
             <Navbar></Navbar>
             <h1 className="playfairFont font-bold text-3xl md:text-4xl pl-16 mt-12">All Products</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-16">
+            <div className="mobile-responsive-home grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-16">
                 {allProducts.map((product, index) => (
                     <div key={index}>
                         <div className="ecommerce_border_color rounded-xl lg-shadow w-full h-full flex flex-col justify-between p-12">
                             <Link className="hover-product" to={`/${product.id}`}>
                                 <img className="w-28 h-28 lg:w-32 lg:h-32 mx-auto" src={product.image} alt="product"></img>
-                                <h1 className="playfairFont text-base md:text-lg mt-10">{product.title} </h1>
-                                <p className="robotoFont font-bold text-base md:text-lg pt-4 price-color">Price: ${product.price}</p>
+                                <h1 className="mobile-responsive-font-ecommerce-title playfairFont text-base md:text-lg mt-10">{product.title} </h1>
+                                <p className="mobile-responsive-font-price robotoFont font-bold text-base md:text-lg pt-4 price-color">Price: ${product.price}</p>
                             </Link>
                             <div className="flex flex-col justify-center pt-8">
                                 <button
-                                    className="add_cart_button lg-shadow text-sm md:text-base playfairFont"
+                                    className="mobile-responsive-button-addCart add_cart_button lg-shadow text-sm md:text-base playfairFont"
                                     style={{ backgroundColor: isClicked[product.id] ? "black" : "", color: isClicked[product.id] ? "white" : "" }}
                                     onClick={() => handleAddProduct(product, product.id)}
                                     disabled={isClicked[product.id]}

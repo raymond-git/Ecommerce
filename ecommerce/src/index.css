@@ -220,13 +220,57 @@ code {
   transition: box-shadow 0.1s ease;
 }
 
-@media only screen and (max-width: 375px) {
-  .quantity-count {
-    width: 27%;
-  }
-}
-
 .delivery_charges {
   color: #4285f4;
   font-weight: bold;
 }
+
+
+
+/*--------@media Queries--------*/
+@media only screen and (max-width: 412px), (max-width: 375px), (max-width: 360px) {
+  .quantity-count {
+    width: 40%;
+    height: 10%;
+  }
+
+  .mobile-responsive-Quantitybutton {
+    align-items: center;
+  }
+
+  .mobile-responsive {
+    display: flex;
+    justify-content: space-between;
+    padding: 11%;
+  }
+
+  .mobile-responsive-cart, .mobile-responsive-home {
+    margin-top: 6%;
+    padding: 10%;
+  }
+
+  .mobile-responsive-details {
+    padding: 10%;
+  }
+
+  .mobile-responsive-credit {
+    margin-right: 2%;
+  }
+
+  .mobile-responsive-font-ecommerce-title {
+    font-size: 18px;
+  }
+
+  .mobile-responsive-font-title {
+    font-size: 20px;
+  }
+
+  .mobile-responsive-font-description, .mobile-responsive-button-addCart{
+    font-size: 16px;
+  }
+
+  .mobile-responsive-font-price {
+    font-size: 18px;
+  }
+}
+

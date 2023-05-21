@@ -13,7 +13,7 @@ const Navbar = () => {
     //We are calling the "cart" from /redux/store.js
     const cartCount = useSelector(state => state.cart.cartCount);
     return (
-        <div className="bg-black flex justify-between py-4 p-14">
+        <div className="mobile-responsive bg-black flex justify-between py-4 p-14">
             <Link to={'/products'}>
                 <div className="flex justify-start">
                     <img className="cc h-8 lg:h-10" src={dataUrl}></img>

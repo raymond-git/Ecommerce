@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 require('dotenv').config();
 
-//
 app.use(express.static("public"));
 app.use(express.json());
 
@@ -50,11 +49,5 @@ app.post('/create-checkout-session', async (req, res) => {
   });
   res.json({ url: session.url });
 });
-
-app.get('/cart', (req, res) => {
-  // Handle the request for the "/cart" route
-  // Return the appropriate response to the client
-});
-
 
 app.listen(port, () => console.log(`Node server listening on port ${process.env.PORT}!`));

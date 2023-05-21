@@ -30,7 +30,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div className='flex justify-between'>
+            <div className='mobile-responsive-credit flex justify-between'>
                 <p className="photo-credit2 ml-4 mt-7 lg:mt-8 lg:ml-4">
                     <a href="https://www.freepik.com/free-photo/front-view-smiling-young-woman-with-measure-tape-sale-nameplate-white-background-losing-measuring-slimming-shopping-torso-hip-skin-body-waist-mall_21741736.htm#query=sale%20shopping%20white%20background%20color&position=26&from_view=search&track=ais">Image by KamranAydinov</a> on Freepik
                 </p>
