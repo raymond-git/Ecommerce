@@ -13,7 +13,7 @@ const LandingPage = () => {
                         Find Your Next Favorite Piece Here
                     </h1>
                     <Link to={"/products"} className="inline-block">
-                        <button className="shopnow-button text-sm md:text-base lg:text-lg absolute top-2/4 left-1/2 transform -translate-x-1/2 px-4 py-1 lg:px-8 lg:py-3">Shop Now</button>
+                        <button className="mobile-responsive-font-landingpage-title shopnow-button text-sm md:text-base lg:text-lg absolute top-2/4 left-1/2 transform -translate-x-1/2 px-4 py-1 lg:px-8 lg:py-3">Shop Now</button>
                     </Link>
                 </div>
             </div>
@@ -29,8 +29,8 @@ const LandingPage = () => {
                     </div>
                 </div>
                 <div className="flex flex-col w-full mt-10 gap-8">
-                    <p className="font-sans font-bold text-base md:text-lg lg:text-xl">Shop Our Latest Collection</p>
-                    <p className="playfairFont text-sm md:text-base lg:text-lg leading-6">
+                    <p className="mobile-responsive-font-title font-sans font-bold text-base md:text-lg lg:text-xl">Shop Our Latest Collection</p>
+                    <p className="mobile-responsive-font-description playfairFont text-sm md:text-base lg:text-lg leading-6">
                         Welcome to our online store! Were excited to share our latest collection of products. From trendy design to
                         classic favorites. Browse our selection and find your perfect fit
                     </p>
@@ -41,8 +41,8 @@ const LandingPage = () => {
                     <img className="md:w-full md:h-64 lg:w-full lg:h-96 mr-96 pr-20 md:pr-32 lg:pr-24 object-contain scale-150 transition duration-100 ease-in-out" src="discountImage.png"></img>
                 </div>
                 <div className="flex flex-col w-full mt-24 gap-8">
-                    <p className="font-sans font-bold text-base md:text-lg lg:text-xl text-red-700">Limited Time Off: 20% Off Your First Purchase</p>
-                    <p className="playfairFont text-sm md:text-base lg:text-lg leading-6">
+                    <p className="mobile-responsive-font-title font-sans font-bold text-base md:text-lg lg:text-xl text-red-700">Limited Time Off: 20% Off Your First Purchase</p>
+                    <p className="mobile-responsive-font-description playfairFont text-sm md:text-base lg:text-lg leading-6">
                         Looking to score a deal on your first purchase? Look no further! We're currently offering
                         20% off for all new customers. Don't miss out on this limited time offer – shop now and save!
                     </p>

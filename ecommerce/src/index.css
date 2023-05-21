@@ -130,7 +130,9 @@ code {
   color: white;
   padding: 0.55rem;
   border: white 1px solid;
+  margin-top: 20px;
 }
+
 
 
 
@@ -283,7 +285,8 @@ code {
     margin-right: 2%;
   }
 
-  .mobile-responsive-font-ecommerce-title {
+  .mobile-responsive-font-ecommerce-title, 
+  .mobile-responsive-font-landingpage-title {
     font-size: 18px;
   }
 
