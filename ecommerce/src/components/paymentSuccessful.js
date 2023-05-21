@@ -1,5 +1,6 @@
 import Navbar from "./navbar";
 import Footer from "./footer";
+import { Link } from "react-router-dom";
 import { renderToString } from 'react-dom/server';
 import { BsFillBagCheckFill } from "react-icons/bs";
 const PaymentSuccessful = () => {
@@ -23,7 +24,7 @@ const PaymentSuccessful = () => {
                     <div className="flex flex-col items-center lg:gap-8">
                         <p className="robotoFont lg:font-medium text-lg md:text-xl lg:text-2xl">Payment done succesfully</p>
                         <p className="text-sm md:text-base lg:text-lg p-8 lg:p-0 text-center">You will be redirected to the shopping page shortly or click here to return to shopping page</p>
-                        <button className="btn btn-primary btn-lg btn-block robotoFont h-12 flex items-center justify-center w-60 lg:h-12 lg:btn-lg lg:w-56 mt-4 rounded-3xl">Shopping Page</button>
+                        <Link to={`/products`}><button className="btn btn-primary btn-lg btn-block robotoFont h-12 flex items-center justify-center w-60 lg:h-12 lg:btn-lg lg:w-56 mt-4 rounded-3xl">Shopping Page</button></Link>
                     </div>
                 </div>
             </div>
