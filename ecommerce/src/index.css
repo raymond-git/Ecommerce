@@ -190,7 +190,7 @@ code {
   font-weight: bold;
   background-color: #fff;
   cursor: pointer;
-  margin-bottom: 3px;
+  margin-bottom: 0px;
 }
 
 .decrement-btn {
@@ -199,7 +199,6 @@ code {
 
 .increment-btn {
   border-radius: 0px 10px 10px 0px;
-  ;
 }
 
 .quantity-count .decrement-btn:hover,
@@ -228,10 +227,36 @@ code {
 
 
 /*--------@media Queries--------*/
-@media only screen and (max-width: 412px), (max-width: 375px), (max-width: 360px) {
+@media only screen and (max-width: 412px),
+(max-width: 375px),
+(max-width: 360px) {
+
+  .quantity-count .decrement-btn,
+  .quantity-count .increment-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.5rem;
+    height: 100%;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #fff;
+    cursor: pointer;
+    margin-bottom: 0px;
+  }
+
   .quantity-count {
     width: 40%;
     height: 10%;
+  }
+
+  .decrement-btn {
+    border-radius: 40px 0px 0px 40px;
+    margin-top: -1%;
+  }
+
+  .increment-btn {
+    border-radius: 0px 10px 10px 0px;
   }
 
   .mobile-responsive-Quantitybutton {
@@ -244,7 +269,8 @@ code {
     padding: 11%;
   }
 
-  .mobile-responsive-cart, .mobile-responsive-home {
+  .mobile-responsive-cart,
+  .mobile-responsive-home {
     margin-top: 6%;
     padding: 10%;
   }
@@ -265,12 +291,16 @@ code {
     font-size: 20px;
   }
 
-  .mobile-responsive-font-description, .mobile-responsive-button-addCart{
+  .mobile-responsive-font-description,
+  .mobile-responsive-button-addCart {
     font-size: 16px;
   }
 
   .mobile-responsive-font-price {
     font-size: 18px;
   }
-}
 
+  .mobile-responsive-title-margin {
+    padding-left: 11%;
+  }
+}

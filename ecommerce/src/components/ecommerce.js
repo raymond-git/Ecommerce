@@ -54,7 +54,7 @@ const Ecommerce = () => {
     return (
         <div className="ecommerce_background_color">
             <Navbar></Navbar>
-            <h1 className="playfairFont font-bold text-3xl md:text-4xl pl-16 mt-12">All Products</h1>
+            <h1 className="mobile-responsive-title-margin playfairFont font-bold text-3xl md:text-4xl pl-16 mt-12">All Products</h1>
             <div className="mobile-responsive-home grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-16">
                 {allProducts.map((product, index) => (
                     <div key={index}>
