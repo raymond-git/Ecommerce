@@ -323,4 +323,8 @@ code {
   .mobile-responsive-back-btn-productDetails {
     margin-bottom: 30px;
   }
+
+  .mobile-responsive-emptycart-btn {
+    height: 1%;
+  }
 }
