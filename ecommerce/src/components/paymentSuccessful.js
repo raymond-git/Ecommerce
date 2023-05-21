@@ -7,9 +7,9 @@ const PaymentSuccessful = () => {
         renderToString(<BsFillBagCheckFill fill="#4285f4" />)
     )}`;
 
-    // setTimeout(function () {
-    //     window.location = '/products';
-    // }, 5000);
+    setTimeout(function () {
+        window.location = '/products';
+    }, 5000);
 
     return (
         <div>
