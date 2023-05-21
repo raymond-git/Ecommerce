@@ -46,7 +46,7 @@ const Cart = () => {
             <Navbar></Navbar>
             {cartCount === 0 ? <EmptyCart /> :
                 <div className="mobile-responsive-cart p-14">
-                    <h1 className="text-2xl md:text-3xl font-bold playfairFont pb-6">Shopping Cart: {cartCount} items</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold robotoFont pb-6">Shopping Cart: {cartCount} items</h1>
                     <div className="lg:flex justify-between gap-8">
                         <div>
                             {viewCart.map((cartItem, index) => (
@@ -57,10 +57,10 @@ const Cart = () => {
                                                 <img className="w-32 h-32 lg:w-36 lg:h-36 mx-auto" src={cartItem.itemProduct.image}></img>
                                             </div>
                                             <div className="lg:flex-1 lg:ml-6 lg:mb-10">
-                                                <h1 className="mobile-responsive-font-title playfairFont font-bold text-base md:text-lg mt-10 ">{cartItem.itemProduct.title}</h1>
-                                                <p className="mobile-responsive-font-description font-sans text-sm md:text-base leading-6 pt-4">{cartItem.itemProduct.description}</p>
+                                                <h1 className="mobile-responsive-font-title robotoFont text-base md:text-xl mt-10 ">{cartItem.itemProduct.title}</h1>
+                                                <p className="mobile-responsive-font-description-cart robotoFont text-sm md:text-base leading-6 pt-4">{cartItem.itemProduct.description}</p>
                                                 <div className="mobile-responsive-Quantitybutton flex justify-start mt-4">
-                                                    <p className="mobile-responsive-font-price robotoFont text-base font-bold md:text-lg">Price: ${cartItem.itemProduct.price}</p>
+                                                    <p className="mobile-responsive-fontprice-cart robotoFont text-base font-bold md:text-lg">Price: ${cartItem.itemProduct.price}</p>
                                                     <div key={index} className="quantity-count md:w-20 lg:w-20 lg:h-6 ml-4">
                                                         <button onClick={() => handleDecreaseCart(cartItem)} className="decrement-btn">-</button>
                                                         <input type="text" className="quantity-input" onChange={handleIncrementDecrentChange} value={cartItem.itemQuantity} />
@@ -87,28 +87,28 @@ const Cart = () => {
                         <div className="col-lg-3 px-0">
                             <div className="card mb-4">
                                 <div className="card-header py-3">
-                                    <h5 className="mobile-responsive-font-title mb-0">Summary</h5>
+                                    <h5 className="mobile-responsive-font-title robotoFont mb-0">Summary</h5>
                                 </div>
                                 <div className="card-body flex flex-row align-items-center p-4">
-                                    <h5 className="mobile-responsive-font-description text-sm lg:text-base font-sans">Don't miss out on savings! Enter promo code "PROMOTION1" for 20% off at checkout</h5>
+                                    <h5 className="mobile-responsive-font-description-cart robotoFont text-sm lg:text-base">Don't miss out on savings! Enter promo code "PROMOTION1" for 20% off at checkout</h5>
                                 </div>
                                 <div className="card-body">
                                     <ul className="list-group list-group-flush">
-                                        <li className="mobile-responsive-font-description list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 font-sans text-sm lg:text-base">Subtotal
+                                        <li className="mobile-responsive-font-description list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 robotoFont text-sm lg:text-base">Subtotal
                                             <p className="mb-2">$ {totalCartPrice}</p>
                                         </li>
-                                        <li className="mobile-responsive-font-description list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 font-sans text-sm lg:text-base">Delivery Charges
+                                        <li className="mobile-responsive-font-description list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 robotoFont text-sm lg:text-base">Delivery Charges
                                             <p className="mb-2 delivery_charges">Free</p>
                                         </li>
                                         <li className="list-group-item d-flex justify-content-between align-items-center px-0"></li>
                                         <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                             <div>
-                                                <strong className="mobile-responsive-font-description text-sm lg:text-base font-sans">Total amount</strong>
+                                                <strong className="mobile-responsive-font-description text-sm lg:text-base robotoFont">Total amount</strong>
                                             </div>
-                                            <span className="text-base font-bold text-gray-700 font-sans">$ {totalCartPrice}</span>
+                                            <span className="text-base font-bold text-gray-700 robotoFont">$ {totalCartPrice}</span>
                                         </li>
                                     </ul>
-                                    <Checkout/> {/* This code generates a button that utilizes the Stripe Checkout API for the payment process. */}
+                                    <Checkout /> {/* This code generates a button that utilizes the Stripe Checkout API for the payment process. */}
                                 </div>
                             </div>
                         </div>

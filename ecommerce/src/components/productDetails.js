@@ -35,7 +35,7 @@ const ProductDetails = () => {
             <Navbar></Navbar>
             {allProducts && (
                 <div className="selectedProduct_border_color rounded-xl lg-shadow p-8 mr-12 ml-12 lg:p-16 lg:mr-64 lg:ml-64 mt-20 md:mt-32 lg:mt-30">
-                    <a href="/products" className="text-gray-500 font-bold hover:text-black flex items-center pr-4">
+                    <a href="/products" className="mobile-responsive-back-btn-productDetails text-gray-500 font-bold hover:text-black flex items-center pr-4">
                         <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mr-1" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" />
                             <polyline points="15 6 9 12 15 18" />
@@ -47,14 +47,14 @@ const ProductDetails = () => {
                             <img className="w-32 h-32 lg:w-48 lg:h-48 mx-auto" src={allProducts.image}></img>
                         </div>
                         <div className="lg:flex-1 lg:ml-6 lg:mb-10">
-                            <h1 className="playfairFont font-bold text-lg md:text-xl mt-10 ">{allProducts.title}</h1>
-                            <p className="font-sans text-sm md:text-base pt-4">{allProducts.description}</p>
+                            <h1 className="mobile-responsive-font-title robotoFont text-lg md:text-xl mt-10 ">{allProducts.title}</h1>
+                            <p className="mobile-responsive-font-description-productDetails robotoFont text-sm md:text-base pt-4">{allProducts.description}</p>
                             <div className="flex justify-start mt-4">
-                                <p className="robotoFont font-bold text-base md:text-lg lg:text-xl price-color ">Price: ${allProducts.price}</p>
+                                <p className="mobile-responsive-fontprice-productDetails robotoFont font-bold text-base md:text-lg lg:text-xl price-color ">Price: ${allProducts.price}</p>
                             </div>
                             <div>
                                 <button
-                                    className="btn btn-primary btn-lg btn-block font-sans h-10 flex items-center justify-center lg:h-12 lg:btn-lg lg:w-56 mt-4"
+                                    className="btn btn-primary btn-lg btn-block robotoFont h-10 flex items-center justify-center lg:h-12 lg:btn-lg lg:w-56 mt-4"
                                     style={{ backgroundColor: isClicked[allProducts.id] ? "black" : "", color: isClicked[allProducts.id] ? "white" : "" }}
                                     onClick={() => handleAddProduct(allProducts, allProducts.id)}
                                     disabled={isClicked[allProducts.id]}

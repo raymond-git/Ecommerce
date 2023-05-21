@@ -268,7 +268,7 @@ code {
   .mobile-responsive {
     display: flex;
     justify-content: space-between;
-    padding: 11%;
+    padding: 8%;
   }
 
   .mobile-responsive-cart,
@@ -285,25 +285,42 @@ code {
     margin-right: 2%;
   }
 
+  .mobile-responsive-font-description,
+  .mobile-responsive-button-addCart,
+  .mobile-responsive-fontprice-cart,
+  .mobile-responsive-fontprice-productDetails,
   .mobile-responsive-font-ecommerce-title, 
   .mobile-responsive-font-landingpage-title {
     font-size: 18px;
   }
 
-  .mobile-responsive-font-title {
+  .mobile-responsive-font-title,
+  .mobile-responsive-fontprice-product {
     font-size: 20px;
   }
 
-  .mobile-responsive-font-description,
-  .mobile-responsive-button-addCart {
-    font-size: 16px;
+  .mobile-responsive-font-subtitle {
+    font-size: 22px;
   }
-
-  .mobile-responsive-font-price {
-    font-size: 18px;
+ 
+  .mobile-responsive-font-description-cart,
+  .mobile-responsive-font-description-productDetails {
+    font-size: 16px;
   }
 
   .mobile-responsive-title-margin {
     padding-left: 11%;
+  }
+
+  .mobile-responsive-align-left {
+    text-align: left;
+  }
+
+  .mobile-responsive-padding {
+    padding: 8%;
+  }
+
+  .mobile-responsive-back-btn-productDetails {
+    margin-bottom: 30px;
   }
 }
