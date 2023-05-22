@@ -17,7 +17,7 @@ const Footer = () => {
                 </div>
                 <div className="w-4/5 lg:w-3/6 lg:text-center">
                     <p className="text-sm md:text-base lg:text-base text-white">
-                        Find everything you need for online shopping with confidence at CloudCart, offering
+                        Find everything you need for online shopping with confidence at ShopiCart, offering
                         high-quality products, competitive pricing, fast shipping, and dedicated customer service.
                     </p>
                 </div>
