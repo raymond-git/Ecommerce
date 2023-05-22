@@ -57,10 +57,10 @@ const Cart = () => {
                                                 <img className="w-32 h-32 lg:w-36 lg:h-36 mx-auto" src={cartItem.itemProduct.image}></img>
                                             </div>
                                             <div className="lg:flex-1 lg:ml-6 lg:mb-10">
-                                                <h1 className="mobile-responsive-font-title robotoFont text-base md:text-xl mt-10 ">{cartItem.itemProduct.title}</h1>
+                                                <h1 className="mobile-responsive-font-title robotoFont text-base md:text-xl mt-10 font-bold">{cartItem.itemProduct.title}</h1>
                                                 <p className="mobile-responsive-font-description-cart robotoFont text-sm md:text-base leading-6 pt-4">{cartItem.itemProduct.description}</p>
                                                 <div className="mobile-responsive-Quantitybutton flex justify-start mt-4">
-                                                    <p className="mobile-responsive-fontprice-cart robotoFont text-base font-bold md:text-lg">Price: ${cartItem.itemProduct.price}</p>
+                                                    <p className="mobile-responsive-fontprice-cart robotoFont text-base font-bold md:text-xl">Price: ${cartItem.itemProduct.price}</p>
                                                     <div key={index} className="quantity-count md:w-20 lg:w-20 lg:h-6 ml-4">
                                                         <button onClick={() => handleDecreaseCart(cartItem)} className="decrement-btn">-</button>
                                                         <input type="text" className="quantity-input" onChange={handleIncrementDecrentChange} value={cartItem.itemQuantity} />
